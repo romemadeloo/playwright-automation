@@ -1,0 +1,19 @@
+{
+  "name": "badges-and-magnets",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "login:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/login.test.js --project=chromium",
+    "login:live:sg": "cross-env ENV=live playwright test singaprinting/test/login.test.js --project=chromium"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@playwright/test": "^1.56.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}
