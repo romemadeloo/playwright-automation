@@ -1,0 +1,376 @@
+import { test, expect } from '@playwright/test';
+import { sgConfig } from '../config/sgConfig.js';
+import { login } from './helpers/loginHelper.js';
+
+const env = process.env.ENV || 'live';
+const targetEnv = sgConfig.environment[env];
+const baseUrl = targetEnv.baseUrl;
+
+test('Order Magnetic Badge Test - dev', async ({ page }) => {
+    try {
+    console.log(`🧭 Running on environment: ${env}`);
+    // Step 1: Login
+    await login(page);
+
+    // Step 2: Navigate to magnetic badge product (use config URL if available)
+    const magneticBadgeUrl = (targetEnv && targetEnv.magneticBadge) ? targetEnv.magneticBadge : `${baseUrl}badges/magnetic-badge?featured=1`;
+    await page.goto(magneticBadgeUrl, { waitUntil: 'networkidle' });
+
+    try {
+        // Wait for the product section with increased timeout
+        await page.waitForSelector('.product-details, .product-container', { timeout: 30000 });
+
+        const productArea = page.locator('.product-details, .product-container').first();
+
+        // If there are multiple product cards, open the first product
+        const productCard = page.locator('.product-card, .product-item').first();
+        if (await productCard.isVisible()) {
+            await productCard.click();
+            await page.waitForLoadState('networkidle');
+        }
+
+        // Choose Shape (Circle)
+        const shapeLocator = productArea.locator('text=Circle');
+        if (await shapeLocator.first().isVisible().catch(() => false)) {
+            await shapeLocator.first().click();
+        }
+
+        // Choose Size (25x25)
+        const sizeLocator = productArea.locator('text=25x25');
+        if (await sizeLocator.first().isVisible().catch(() => false)) {
+            await sizeLocator.first().click();
+        }
+
+        // Choose Finishing (Gloss)
+        const glossLocator = productArea.locator('text=Gloss');
+        if (await glossLocator.first().isVisible().catch(() => false)) {
+            await glossLocator.first().click();
+        }
+
+        // Set Quantity to 5
+        const qtyInput = productArea.locator('input[type="number"], input[name="quantity"], input.quantity-input');
+        if (await qtyInput.first().isVisible().catch(() => false)) {
+            await qtyInput.first().fill('5');
+        } else {
+            const qtyButton = productArea.locator('button:has-text("5"), text=5');
+            if (await qtyButton.first().isVisible().catch(() => false)) {
+                await qtyButton.first().click();
+            }
+        }
+
+        // Click Add to Cart and wait for cart update/response
+        // Try several selector strategies: scoped inside productArea first, then global
+        const addSelectors = [
+            'button:has-text("Add to Cart")',
+            'button:has-text("Add To Cart")',
+            'button.add-to-cart',
+            'a:has-text("Add to Cart")',
+            'input[value="Add to Cart"]',
+        ];
+
+        let clicked = false;
+        for (const sel of addSelectors) {
+            // prefer scoped lookup first
+            const scoped = productArea.locator(sel).first();
+            if (await scoped.isVisible().catch(() => false)) {
+                await Promise.all([
+                    page.waitForResponse(response => response.url().includes('/cart') && (response.status() === 200 || response.status() === 201), { timeout: 10000 }).catch(() => null),
+                    scoped.click()
+                ]);
+                console.log(`✅ Clicked add-to-cart using scoped selector: ${sel}`);
+                clicked = true;
+                break;
+            }
+            // try global
+            const global = page.locator(sel).first();
+            if (await global.isVisible().catch(() => false)) {
+                await Promise.all([
+                    page.waitForResponse(response => response.url().includes('/cart') && (response.status() === 200 || response.status() === 201), { timeout: 10000 }).catch(() => null),
+                    global.click()
+                ]);
+                console.log(`✅ Clicked add-to-cart using global selector: ${sel}`);
+                clicked = true;
+                break;
+            }
+        }
+
+        if (!clicked) {
+            // helpful debug: list buttons text on page
+            const buttons = await page.locator('button, a, input[type="submit"]').allTextContents();
+            console.log('ℹ️ Buttons on page:', buttons.slice(0, 20));
+            throw new Error('Add to Cart button not found (checked multiple selectors)');
+        }
+
+        // Navigate to cart page
+        const cartBtn = page.locator('.cart-icon, a[href*="cart"], text=Cart');
+        if (await cartBtn.first().isVisible().catch(() => false)) {
+            await Promise.all([
+                page.waitForNavigation({ waitUntil: 'networkidle', timeout: 10000 }).catch(() => null),
+                cartBtn.first().click()
+            ]);
+        } else {
+            await page.goto(new URL('/cart', baseUrl).toString(), { waitUntil: 'networkidle' });
+        }
+
+        // Verify cart contents — wait for cart heading or product title
+        await Promise.race([
+            page.waitForSelector('text=Cart (', { timeout: 10000 }).catch(() => null),
+            page.waitForSelector('text=Magnetic Badge', { timeout: 10000 }).catch(() => null),
+        ]);
+        // Look for product title in page text as fallback
+        const pageText = (await page.content()).toLowerCase();
+        expect(pageText).toContain('magnetic badge');
+        await page.screenshot({ path: `test-results/magnetic-badge-success-${env}.png`, fullPage: true });
+
+        // Proceed to checkout
+        try {
+            // Try common checkout button selectors
+            const checkoutSelectors = [
+                'button:has-text("CHECKOUT")',
+                'button:has-text("Checkout")',
+                'a:has-text("CHECKOUT")',
+                'a:has-text("Checkout")',
+                'button.checkout',
+                'a[href*="/checkout"]'
+            ];
+
+            let navigatedToCheckout = false;
+            for (const sel of checkoutSelectors) {
+                const el = page.locator(sel).first();
+                if (await el.isVisible().catch(() => false)) {
+                    await Promise.all([
+                        page.waitForNavigation({ waitUntil: 'networkidle', timeout: 15000 }).catch(() => null),
+                        el.click()
+                    ]);
+                    console.log(`✅ Clicked checkout using selector: ${sel}`);
+                    navigatedToCheckout = true;
+                    break;
+                }
+            }
+
+            if (!navigatedToCheckout) {
+                // fallback: open checkout URL directly
+                const checkoutUrl = new URL('/checkout', baseUrl).toString();
+                await page.goto(checkoutUrl, { waitUntil: 'networkidle' });
+                console.log('ℹ️ Opened checkout URL directly');
+            }
+
+            // Wait for a known checkout element (payment options or checkout heading)
+            await Promise.race([
+                page.waitForSelector('text=Available Payment Options', { timeout: 15000 }).catch(() => null),
+                page.waitForSelector('text=Checkout', { timeout: 15000 }).catch(() => null),
+                page.waitForSelector('form[action*="/checkout"]', { timeout: 15000 }).catch(() => null)
+            ]);
+
+            try {
+                // Enable drop shipping checkbox if visible
+                const enableDropShippingBtn = page.locator('input[type="checkbox"]').filter({ hasText: /Enable Drop Shipping/ });
+                if (await enableDropShippingBtn.isVisible().catch(() => false)) {
+                    await enableDropShippingBtn.click();
+                    console.log('✅ Enabled drop shipping');
+                }
+
+                // Random choose shipping method
+                const availableShippingMethods = ['Standard', 'Express'];
+                const selectedShipping = availableShippingMethods[Math.floor(Math.random() * availableShippingMethods.length)];
+                const selectedShippingRadio = page.locator(`input[type="radio"]`).filter({ hasText: selectedShipping }).first();
+                if (await selectedShippingRadio.isVisible().catch(() => false)) {
+                    await selectedShippingRadio.click();
+                    console.log(`✅ Selected ${selectedShipping} shipping`);
+                }
+
+                // Random choose payment method
+                const availablePaymentMethods = ['Credit Card', 'Bank Transfer'];
+                const selectedPayment = availablePaymentMethods[Math.floor(Math.random() * availablePaymentMethods.length)];
+                console.log(`🔄 Attempting to select payment method: ${selectedPayment}`);
+                
+                if (selectedPayment === 'Credit Card') {
+                    // Try to select Credit Card payment method using JavaScript
+                    await page.evaluate(() => {
+                        const radioInputs = Array.from(document.querySelectorAll('input[type="radio"]'));
+                        const creditCardInput = radioInputs.find(input => {
+                            const label = document.querySelector(`label[for="${input.id}"]`);
+                            return label && label.textContent.includes('Credit Card');
+                        });
+                        if (creditCardInput) creditCardInput.click();
+                    });
+                    
+                    // Wait for credit card form to be visible
+                    await page.waitForSelector('input[name="card_number"]', { timeout: 5000 });
+                    
+                    // Fill credit card details
+                    await page.locator('input[name="card_number"]').fill('4035501000000008');
+                    console.log('✅ Filled card number');
+                    
+                    // Generate future date (after 2025)
+                    const randomMonth = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+                    const randomYear = String(Math.floor(Math.random() * 5) + 26); // 26-30 (2026-2030)
+                    await page.locator('input[placeholder="MM/YY"], input[name="expiry"]').fill(`${randomMonth}${randomYear}`);
+                    console.log('✅ Filled expiry date');
+                    
+                    // Generate random 3-digit CVV
+                    const randomCVV = String(Math.floor(Math.random() * 900) + 100);
+                    await page.locator('input[placeholder="XXX"], input[name="cvv"]').fill(randomCVV);
+                    console.log('✅ Filled CVV');
+                } else {
+                    // Try to select Bank Transfer using JavaScript
+                    await page.evaluate(() => {
+                        const radioInputs = Array.from(document.querySelectorAll('input[type="radio"]'));
+                        const bankTransferInput = radioInputs.find(input => {
+                            const label = document.querySelector(`label[for="${input.id}"]`);
+                            return label && label.textContent.includes('Bank Transfer');
+                        });
+                        if (bankTransferInput) bankTransferInput.click();
+                    });
+                    console.log('✅ Selected Bank Transfer payment method');
+                }
+
+                // Agree to terms and services
+                const termsCheckbox = page.locator('input[type="checkbox"]').filter({ hasText: /Terms of Services|Privacy Policy/ });
+                await termsCheckbox.click();
+                console.log('✅ Agreed to terms and services');
+
+                // Click complete checkout
+                const completeCheckoutButton = page.locator('button:has-text("Complete Checkout")');
+                await Promise.all([
+                    page.waitForLoadState('networkidle'),
+                    completeCheckoutButton.click()
+                ]);
+                console.log('✅ Clicked complete checkout');
+
+                // Take a final checkout screenshot
+                await page.screenshot({ path: `test-results/magnetic-badge-checkout-${env}.png`, fullPage: true });
+                console.log('✅ Completed checkout process and captured screenshot');
+            } catch (formError) {
+                console.error('❌ Error during checkout form:', formError.message);
+                await page.screenshot({ path: `test-results/checkout-form-error-${env}.png`, fullPage: true });
+                throw formError;
+            }
+
+            // Enable drop shipping checkbox if visible
+            const dropShippingCheckbox = page.locator('input[type="checkbox"]').filter({ hasText: /Enable Drop Shipping/ });
+            if (await dropShippingCheckbox.isVisible().catch(() => false)) {
+                await dropShippingCheckbox.click();
+                console.log('✅ Enabled drop shipping');
+            }
+
+            // Random choose shipping method
+            const shippingMethods = ['Standard', 'Express'];
+            const randomShipping = shippingMethods[Math.floor(Math.random() * shippingMethods.length)];
+            const shippingLocator = page.locator(`input[type="radio"]`).filter({ hasText: randomShipping }).first();
+            if (await shippingLocator.isVisible().catch(() => false)) {
+                await shippingLocator.click();
+                console.log(`✅ Selected ${randomShipping} shipping`);
+            }
+
+            // Random choose payment method
+            const paymentMethods = ['Credit Card', 'Bank Transfer'];
+            const randomPayment = paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
+            console.log(`🔄 Attempting to select payment method: ${randomPayment}`);
+            
+            if (randomPayment === 'Credit Card') {
+                try {
+                    // Try to select Credit Card payment method
+                    await page.evaluate(() => {
+                        const radioInputs = Array.from(document.querySelectorAll('input[type="radio"]'));
+                        const creditCardInput = radioInputs.find(input => {
+                            const label = document.querySelector(`label[for="${input.id}"]`);
+                            return label && label.textContent.includes('Credit Card');
+                        });
+                        if (creditCardInput) creditCardInput.click();
+                    });
+                    
+                    // Wait for credit card form to be visible
+                    await page.waitForSelector('input[name="card_number"]', { timeout: 5000 });
+                    
+                    // Fill credit card details
+                    await page.locator('input[name="card_number"]').fill('4035501000000008');
+                    console.log('✅ Filled card number');
+                    
+                    // Generate future date (after 2025)
+                    const randomMonth = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+                    const randomYear = String(Math.floor(Math.random() * 5) + 26); // 26-30 (2026-2030)
+                    await page.locator('input[placeholder="MM/YY"], input[name="expiry"]').fill(`${randomMonth}${randomYear}`);
+                    console.log('✅ Filled expiry date');
+                    
+                    // Generate random 3-digit CVV
+                    const randomCVV = String(Math.floor(Math.random() * 900) + 100);
+                    await page.locator('input[placeholder="XXX"], input[name="cvv"]').fill(randomCVV);
+                    console.log('✅ Filled CVV');
+                } catch (error) {
+                    console.error('❌ Error filling credit card details:', error.message);
+                    // Take a screenshot of the error state
+                    await page.screenshot({ path: `test-results/credit-card-error-${env}.png`, fullPage: true });
+                    throw error;
+                }
+            } else {
+                // Try to select Bank Transfer
+                await page.evaluate(() => {
+                    const radioInputs = Array.from(document.querySelectorAll('input[type="radio"]'));
+                    const bankTransferInput = radioInputs.find(input => {
+                        const label = document.querySelector(`label[for="${input.id}"]`);
+                        return label && label.textContent.includes('Bank Transfer');
+                    });
+                    if (bankTransferInput) bankTransferInput.click();
+                });
+                console.log('✅ Selected Bank Transfer payment method');
+            }
+
+            // Agree to terms and services
+            const termsCheckbox = page.locator('input[type="checkbox"]').filter({ hasText: /Terms of Services|Privacy Policy/ });
+            await termsCheckbox.click();
+            console.log('✅ Agreed to terms and services');
+
+            // Click complete checkout
+            const completeCheckoutButton = page.locator('button:has-text("Complete Checkout")');
+            await Promise.all([
+                page.waitForLoadState('networkidle'),
+                completeCheckoutButton.click()
+            ]);
+            console.log('✅ Clicked complete checkout');
+                
+                // Fill credit card details
+                await page.locator('input[name="card_number"]').fill('4035501000000008');
+                
+                // Generate future date (after 2025)
+                const randomMonth = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+                const randomYear = String(Math.floor(Math.random() * 5) + 26); // 26-30 (2026-2030)
+                await page.locator('input[placeholder="MM/YY"], input[name="expiry"]').fill(`${randomMonth}${randomYear}`);
+                
+                // Generate random 3-digit CVV
+                const randomCVV = String(Math.floor(Math.random() * 900) + 100);
+                await page.locator('input[placeholder="XXX"], input[name="cvv"]').fill(randomCVV);
+            } else {
+                const bankTransferOption = page.locator('text=Bank Transfer').first();
+                await bankTransferOption.click();
+            }
+
+            // Agree to terms and services
+            const termsCheckbox = page.locator('input[type="checkbox"]').filter({ hasText: /Terms of Services|Privacy Policy/ });
+            await termsCheckbox.check();
+
+            // Click complete checkout
+            const completeCheckoutButton = page.locator('button:has-text("Complete Checkout")');
+            await completeCheckoutButton.click();
+            await page.waitForLoadState('networkidle');
+
+            // Take a final checkout screenshot
+            await page.screenshot({ path: `test-results/magnetic-badge-checkout-${env}.png`, fullPage: true });
+            console.log('✅ Completed checkout process and captured screenshot');
+        } catch (checkoutError) {
+            console.error('❌ Checkout step failed:', checkoutError.message);
+            await page.screenshot({ path: `test-results/magnetic-badge-checkout-error-${env}.png`, fullPage: true }).catch(() => null);
+            throw checkoutError;
+        }
+
+    } catch (error) {
+        console.error('❌ Error:', error.message);
+        // ensure page is defined before taking screenshot
+        if (typeof page !== 'undefined') {
+            await page.screenshot({ path: `test-results/magnetic-badge-error-${env}.png`, fullPage: true });
+        }
+        throw error;
+    }
+    }
+});
+

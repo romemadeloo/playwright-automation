@@ -10,16 +10,17 @@ export const sgConfig = {
     live: {
       baseUrl: 'https://www.singaprinting.com/',
       productSample: 'https://www.singaprinting.com/stickers/paper/art?featured=art-paper-roll', // sample product
+      magneticBadge: 'https://www.singaprinting.com/badges/magnetic'
     },
     dev: {
-      baseUrl: 'https://dev.singaprinting.com/',
-      domeStickers: 'https://dev.singaprinting.com/stickers/special/dome?featured=1', // sample product
+      baseUrl: 'https://dev-new-product.singaprinting.com/',
+      magneticBadge: 'https://dev-new-product.singaprinting.com/badges/magnetic-badge'
     },
   },
 
   credentials: {
-    email: 'trainee81.glophics@gmail.com',
-    password: '1234516',
+    email: 'temptrainee9@gmail.com',
+    password: 'Rotund123!',
   },
 
   xpaths: {

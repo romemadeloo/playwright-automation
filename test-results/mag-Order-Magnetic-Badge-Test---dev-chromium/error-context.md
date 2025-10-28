@@ -1,0 +1,454 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e5]:
+  - paragraph [ref=e7]: This is a staged site for SingaPrinting
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - link "SingaPrinting" [ref=e16] [cursor=pointer]:
+          - /url: /
+          - img "SingaPrinting" [ref=e17]
+        - heading "Secure Checkout" [level=1] [ref=e19]
+      - list [ref=e21]:
+        - listitem [ref=e22]:
+          - mark [ref=e23]: +65 3158 2800
+        - listitem [ref=e24]:
+          - link "info@singaprinting.com" [ref=e25] [cursor=pointer]:
+            - /url: mailto:info@singaprinting.com
+    - generic [ref=e26]:
+      - complementary [ref=e27]:
+        - generic [ref=e30]:
+          - 'heading "Shipping Address (Note: We prefer physical addresses over PO Box or Parcel Lockers)" [level=2] [ref=e31] [cursor=pointer]'
+          - generic [ref=e33]:
+            - generic [ref=e35] [cursor=pointer]:
+              - generic [ref=e38]: FullName Test
+              - paragraph [ref=e39]: Glophics
+              - paragraph [ref=e40]:
+                - text: Address Line 1 Test
+                - text: Address Line 2 Test
+                - text: Singapore 6000
+                - text: "06442342235"
+            - generic [ref=e45] [cursor=pointer]: Ship to another address
+        - generic [ref=e47]:
+          - generic [ref=e49]:
+            - link "Close Modal" [ref=e50] [cursor=pointer]:
+              - /url: javascript:;
+            - paragraph [ref=e51]: By default, all orders will be shipped from SingaPrinting. Should you wish to use your information (Name and Company Name) as sender, select this option to enable the item to be shipped directly to your client with your name/company name on it instead of ours.
+          - generic [ref=e57] [cursor=pointer]: Enable Drop Shipping
+        - generic [ref=e60]:
+          - 'heading "Shipping Method Note: This is the estimated delivery date if the order is confirmed today." [level=3] [ref=e61] [cursor=pointer]'
+          - generic [ref=e62]:
+            - generic [ref=e68] [cursor=pointer]:
+              - paragraph [ref=e69]: Standard
+              - paragraph [ref=e70]: (November 6, 2025 - November 10, 2025)
+              - paragraph [ref=e71]: Free
+            - generic [ref=e77] [cursor=pointer]:
+              - paragraph [ref=e78]: Express
+              - paragraph [ref=e79]: (November 5, 2025 - November 7, 2025)
+              - paragraph [ref=e80]: S$36.00
+        - generic [ref=e82]:
+          - heading "Payment Options" [level=3] [ref=e83] [cursor=pointer]
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - generic [ref=e87] [cursor=pointer]:
+                - radio "Credit Card" [checked] [ref=e88]
+                - generic [ref=e90]: Credit Card
+              - generic [ref=e91] [cursor=pointer]:
+                - radio "PayPal" [ref=e92]
+                - generic [ref=e94]: PayPal
+              - generic [ref=e95] [cursor=pointer]:
+                - radio "Bank Transfer" [ref=e96]
+                - generic [ref=e98]: Bank Transfer
+            - img "credit-card payment option" [ref=e100]
+            - list [ref=e102]:
+              - listitem [ref=e103]: Pay with your credit card. Visa, Mastercard, JCB, American Express and Unionpay are accepted.
+            - generic [ref=e107]:
+              - iframe [ref=e110]:
+                - generic [active] [ref=f1e1]:
+                  - generic [ref=f1e5]:
+                    - textbox "Card number" [ref=f1e6]
+                    - generic [ref=f1e7]:
+                      - img "default card icon" [ref=f1e9]
+                      - img "default card icon" [ref=f1e11]
+                  - iframe [ref=f1e13]:
+                    - generic [ref=f2e2]:
+                      - generic [ref=f2e4]:
+                        - generic [ref=f2e5]: 安全验证
+                        - generic:
+                          - img [ref=f2e8]
+                          - generic [ref=f2e13]: 返回
+                      - generic:
+                        - option
+                      - generic [ref=f2e14]:
+                        - generic [ref=f2e17]: 拖动下方滑块完成拼图
+                        - generic [ref=f2e22]:
+                          - img "feedback" [ref=f2e25] [cursor=pointer]
+                          - img "refresh" [ref=f2e28] [cursor=pointer]
+              - generic [ref=e111]:
+                - generic [ref=e112]:
+                  - generic: Expiry
+                  - iframe [ref=e114]:
+                    - generic [active] [ref=f3e1]:
+                      - textbox "Credit or debit card expiration date" [ref=f3e6]:
+                        - /placeholder: MM / YY
+                      - iframe [ref=f3e8]:
+                        - generic [ref=f4e2]:
+                          - generic [ref=f4e4]:
+                            - generic [ref=f4e5]: 安全验证
+                            - generic:
+                              - img [ref=f4e8]
+                              - generic [ref=f4e13]: 返回
+                          - generic:
+                            - option
+                          - generic [ref=f4e14]:
+                            - generic [ref=f4e17]: 拖动下方滑块完成拼图
+                            - generic [ref=f4e22]:
+                              - img "feedback" [ref=f4e25] [cursor=pointer]
+                              - img "refresh" [ref=f4e28] [cursor=pointer]
+                - generic [ref=e115]:
+                  - generic: CVC
+                  - iframe [ref=e117]:
+                    - generic [active] [ref=f5e1]:
+                      - textbox "CVC" [ref=f5e6]:
+                        - /placeholder: XXX
+                      - iframe [ref=f5e8]:
+                        - generic [ref=f6e2]:
+                          - generic [ref=f6e4]:
+                            - generic [ref=f6e5]: 安全验证
+                            - generic:
+                              - img [ref=f6e8]
+                              - generic [ref=f6e13]: 返回
+                          - generic:
+                            - option
+                          - generic [ref=f6e14]:
+                            - generic [ref=f6e17]: 拖动下方滑块完成拼图
+                            - generic [ref=f6e22]:
+                              - img "feedback" [ref=f6e25] [cursor=pointer]
+                              - img "refresh" [ref=f6e28] [cursor=pointer]
+        - generic [ref=e125] [cursor=pointer]: Use my shipping address as my billing address
+        - generic [ref=e127] [cursor=pointer]:
+          - heading "Special Instruction" [level=3] [ref=e128]
+          - textbox "Enter special instructions..." [ref=e131]
+      - complementary [ref=e132]:
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e136]:
+              - text: Subtotal
+              - generic [ref=e137]: S$210.00
+            - generic [ref=e139]:
+              - text: Shipping fee
+              - generic [ref=e140]: S$0
+            - generic [ref=e141]:
+              - generic [ref=e143]:
+                - generic [ref=e145]:
+                  - generic [ref=e146]:
+                    - generic [ref=e148]:
+                      - generic: Use Points
+                      - textbox [ref=e149]
+                    - generic [ref=e150]: / 2.9425P
+                  - button "Use All" [ref=e151] [cursor=pointer]
+                - generic [ref=e152]:
+                  - generic [ref=e154]:
+                    - generic [ref=e157]:
+                      - generic: Enter Coupon Code
+                      - textbox [ref=e158]
+                    - button "Apply" [ref=e159] [cursor=pointer]
+                  - generic [ref=e160]:
+                    - img "Coupon" [ref=e162]
+                    - button "Remove coupon" [ref=e163] [cursor=pointer]
+                - paragraph [ref=e164]:
+                  - text: or
+                  - link "Select Coupon" [ref=e165] [cursor=pointer]:
+                    - /url: javascript:;
+              - generic [ref=e167]:
+                - generic [ref=e168]:
+                  - heading "Coupons" [level=3] [ref=e169]
+                  - link "Close Modal" [ref=e170] [cursor=pointer]:
+                    - /url: javascript:;
+                - paragraph [ref=e172]: No coupon found!
+                - generic [ref=e173]:
+                  - button "Use Coupon"
+            - generic [ref=e175]:
+              - text: Total Cost
+              - generic [ref=e176]: S$210.00
+          - generic [ref=e178] [cursor=pointer]:
+            - generic [ref=e180]: I Agree with the
+            - link "Terms of Services" [ref=e181]:
+              - /url: /terms-and-condition
+            - generic [ref=e182]: and
+            - link "Privacy Policy" [ref=e183]:
+              - /url: /privacy-policy
+          - generic [ref=e184]:
+            - button "Complete Checkout" [ref=e185] [cursor=pointer]
+            - button "Request quotation" [ref=e186] [cursor=pointer]
+        - generic [ref=e187]:
+          - generic [ref=e188]:
+            - heading "Item Summary (15)" [level=4] [ref=e189]
+            - link "Edit" [ref=e190] [cursor=pointer]:
+              - /url: javascript:;
+          - generic [ref=e192]:
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e193]':
+              - img "item-1" [ref=e194]
+              - generic [ref=e195]:
+                - paragraph [ref=e196]: Magnetic Badge
+                - list [ref=e197]:
+                  - listitem [ref=e198]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e202]: "Quantity : 5"
+                - generic [ref=e203]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e204]':
+              - img "item-2" [ref=e205]
+              - generic [ref=e206]:
+                - paragraph [ref=e207]: Magnetic Badge
+                - list [ref=e208]:
+                  - listitem [ref=e209]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e213]: "Quantity : 5"
+                - generic [ref=e214]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e215]':
+              - img "item-3" [ref=e216]
+              - generic [ref=e217]:
+                - paragraph [ref=e218]: Magnetic Badge
+                - list [ref=e219]:
+                  - listitem [ref=e220]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e224]: "Quantity : 5"
+                - generic [ref=e225]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e226]':
+              - img "item-4" [ref=e227]
+              - generic [ref=e228]:
+                - paragraph [ref=e229]: Magnetic Badge
+                - list [ref=e230]:
+                  - listitem [ref=e231]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e235]: "Quantity : 5"
+                - generic [ref=e236]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e237]':
+              - img "item-5" [ref=e238]
+              - generic [ref=e239]:
+                - paragraph [ref=e240]: Magnetic Badge
+                - list [ref=e241]:
+                  - listitem [ref=e242]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e246]: "Quantity : 5"
+                - generic [ref=e247]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e248]':
+              - img "item-6" [ref=e249]
+              - generic [ref=e250]:
+                - paragraph [ref=e251]: Magnetic Badge
+                - list [ref=e252]:
+                  - listitem [ref=e253]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e257]: "Quantity : 5"
+                - generic [ref=e258]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e259]':
+              - img "item-7" [ref=e260]
+              - generic [ref=e261]:
+                - paragraph [ref=e262]: Magnetic Badge
+                - list [ref=e263]:
+                  - listitem [ref=e264]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e268]: "Quantity : 5"
+                - generic [ref=e269]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e270]':
+              - img "item-8" [ref=e271]
+              - generic [ref=e272]:
+                - paragraph [ref=e273]: Magnetic Badge
+                - list [ref=e274]:
+                  - listitem [ref=e275]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e279]: "Quantity : 5"
+                - generic [ref=e280]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e281]':
+              - img "item-9" [ref=e282]
+              - generic [ref=e283]:
+                - paragraph [ref=e284]: Magnetic Badge
+                - list [ref=e285]:
+                  - listitem [ref=e286]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e290]: "Quantity : 5"
+                - generic [ref=e291]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e292]':
+              - img "item-10" [ref=e293]
+              - generic [ref=e294]:
+                - paragraph [ref=e295]: Magnetic Badge
+                - list [ref=e296]:
+                  - listitem [ref=e297]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e301]: "Quantity : 5"
+                - generic [ref=e302]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e303]':
+              - img "item-11" [ref=e304]
+              - generic [ref=e305]:
+                - paragraph [ref=e306]: Magnetic Badge
+                - list [ref=e307]:
+                  - listitem [ref=e308]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e312]: "Quantity : 5"
+                - generic [ref=e313]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e314]':
+              - img "item-12" [ref=e315]
+              - generic [ref=e316]:
+                - paragraph [ref=e317]: Magnetic Badge
+                - list [ref=e318]:
+                  - listitem [ref=e319]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e323]: "Quantity : 5"
+                - generic [ref=e324]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e325]':
+              - img "item-13" [ref=e326]
+              - generic [ref=e327]:
+                - paragraph [ref=e328]: Magnetic Badge
+                - list [ref=e329]:
+                  - listitem [ref=e330]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e334]: "Quantity : 5"
+                - generic [ref=e335]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e336]':
+              - img "item-14" [ref=e337]
+              - generic [ref=e338]:
+                - paragraph [ref=e339]: Magnetic Badge
+                - list [ref=e340]:
+                  - listitem [ref=e341]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e345]: "Quantity : 5"
+                - generic [ref=e346]: S$14.00
+            - 'figure "Magnetic Badge 25x25mm / Circle / Gloss Quantity : 5 S$14.00" [ref=e347]':
+              - img "item-15" [ref=e348]
+              - generic [ref=e349]:
+                - paragraph [ref=e350]: Magnetic Badge
+                - list [ref=e351]:
+                  - listitem [ref=e352]: 25x25mm / Circle / Gloss
+                  - paragraph [ref=e356]: "Quantity : 5"
+                - generic [ref=e357]: S$14.00
+    - generic [ref=e359]:
+      - generic [ref=e360]:
+        - heading [level=3] [ref=e361]
+        - link "Close Modal" [ref=e362] [cursor=pointer]:
+          - /url: javascript:;
+          - img "close" [ref=e363]
+      - generic [ref=e368] [cursor=pointer]: No Address
+      - button "SELECT" [ref=e370] [cursor=pointer]
+  - contentinfo [ref=e372]:
+    - generic [ref=e373]:
+      - generic [ref=e374]:
+        - link "SingaPrinting" [ref=e376] [cursor=pointer]:
+          - /url: /
+          - img "SingaPrinting" [ref=e377]
+        - generic [ref=e378]:
+          - generic [ref=e379]:
+            - text: +65 3158 2800
+            - link "info@singaprinting.com" [ref=e380] [cursor=pointer]:
+              - /url: mailto:info@singaprinting.com
+            - text: 8:00AM ~ 5:00PM
+          - generic [ref=e381]:
+            - text: 51 Changi Business Park Central 2,
+            - text: "# 04-05 The Signature,"
+            - text: Singapore 486066
+        - generic [ref=e382]:
+          - link "facebook icon" [ref=e383] [cursor=pointer]:
+            - /url: https://www.facebook.com/SingaPrinting
+            - img "facebook icon" [ref=e384]
+          - link "twitter icon" [ref=e385] [cursor=pointer]:
+            - /url: https://x.com/SingaPrinting
+            - img "twitter icon" [ref=e386]
+          - link "youtube icon" [ref=e387] [cursor=pointer]:
+            - /url: https://www.youtube.com/@singaprinting
+            - img "youtube icon" [ref=e388]
+          - link "pinterest icon" [ref=e389] [cursor=pointer]:
+            - /url: https://www.pinterest.com/singaprinting/
+            - img "pinterest icon" [ref=e390]
+          - link "instagram icon" [ref=e391] [cursor=pointer]:
+            - /url: https://www.instagram.com/singa.printing/
+            - img "instagram icon" [ref=e392]
+          - img "tiktok icon" [ref=e394]
+      - generic [ref=e395]:
+        - generic [ref=e396]:
+          - heading "My Account" [level=3] [ref=e397]
+          - list [ref=e399]:
+            - listitem [ref=e400]:
+              - link "Profile" [ref=e401] [cursor=pointer]:
+                - /url: /mypage/profile
+            - listitem [ref=e402]:
+              - link "My Orders" [ref=e403] [cursor=pointer]:
+                - /url: /mypage/orders
+            - listitem [ref=e404]:
+              - link "Points/Coupons" [ref=e405] [cursor=pointer]:
+                - /url: /mypage/rewards
+            - listitem [ref=e406]:
+              - link "My Reviews" [ref=e407] [cursor=pointer]:
+                - /url: /mypage/review
+            - listitem [ref=e408]:
+              - link "My Quote Requests" [ref=e409] [cursor=pointer]:
+                - /url: /mypage/quote-requests
+            - listitem
+            - listitem [ref=e410]:
+              - link "Sign Out" [ref=e411] [cursor=pointer]:
+                - /url: javascript://;
+          - heading "Support" [level=3] [ref=e412]
+          - list [ref=e414]:
+            - listitem [ref=e415]:
+              - link "News" [ref=e416] [cursor=pointer]:
+                - /url: /user-guide/latest-news
+            - listitem [ref=e417]:
+              - link "FAQ" [ref=e418] [cursor=pointer]:
+                - /url: /user-guide/faq
+            - listitem [ref=e419]:
+              - link "Blog" [ref=e420] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e421]:
+              - link "Stories" [ref=e422] [cursor=pointer]:
+                - /url: /success-stories
+            - listitem [ref=e423]:
+              - link "Uses" [ref=e424] [cursor=pointer]:
+                - /url: /uses
+            - listitem [ref=e425]:
+              - link "Contact Us" [ref=e426] [cursor=pointer]:
+                - /url: javascript://;
+        - generic [ref=e427]:
+          - heading "User Guide" [level=3] [ref=e428]
+          - list [ref=e430]:
+            - listitem [ref=e431]:
+              - link "Order" [ref=e432] [cursor=pointer]:
+                - /url: /user-guide/order-delivery?page=HowToOrder
+            - listitem [ref=e433]:
+              - link "Artwork Guide" [ref=e434] [cursor=pointer]:
+                - /url: /user-guide/artwork-guide
+            - listitem [ref=e435]:
+              - link "Payment" [ref=e436] [cursor=pointer]:
+                - /url: /user-guide/order-delivery#paymentMethod
+            - listitem [ref=e437]:
+              - link "Delivery" [ref=e438] [cursor=pointer]:
+                - /url: /user-guide/order-delivery?page=Delivery
+          - heading "Tools" [level=3] [ref=e439]
+          - list [ref=e441]:
+            - listitem [ref=e442]:
+              - link "Lettering Designer" [ref=e443] [cursor=pointer]:
+                - /url: /vinyl-lettering-designer
+        - generic [ref=e444]:
+          - heading "Products" [level=3] [ref=e445]
+          - list [ref=e447]:
+            - listitem [ref=e448]:
+              - link "Paper Stickers" [ref=e449] [cursor=pointer]:
+                - /url: /stickers/paper
+            - listitem [ref=e450]:
+              - link "Vinyl Stickers" [ref=e451] [cursor=pointer]:
+                - /url: /stickers/vinyl
+            - listitem [ref=e452]:
+              - link "Special Stickers" [ref=e453] [cursor=pointer]:
+                - /url: /stickers/special
+            - listitem [ref=e454]:
+              - link "Die Cut Stickers" [ref=e455] [cursor=pointer]:
+                - /url: /stickers/die-cut
+            - listitem [ref=e456]:
+              - link "Kiss Cut Stickers" [ref=e457] [cursor=pointer]:
+                - /url: /stickers/kiss-cut
+            - listitem [ref=e458]:
+              - link "Sheet Stickers" [ref=e459] [cursor=pointer]:
+                - /url: /stickers/sheet
+            - listitem [ref=e460]:
+              - link "Roll Stickers" [ref=e461] [cursor=pointer]:
+                - /url: /stickers/roll
+            - listitem [ref=e462]:
+              - link "Business Cards" [ref=e463] [cursor=pointer]:
+                - /url: /business-cards
+            - listitem [ref=e464]:
+              - link "Hang Tags" [ref=e465] [cursor=pointer]:
+                - /url: /hang-tags
+    - generic [ref=e467]:
+      - generic [ref=e468]: Copyright © GLOPHICS LIMITED. All Rights Reserved.
+      - generic [ref=e469]:
+        - link "Terms of Service" [ref=e470] [cursor=pointer]:
+          - /url: /terms-and-condition
+        - link "Privacy Policy" [ref=e471] [cursor=pointer]:
+          - /url: /privacy-policy
+        - link "Site Map" [ref=e472] [cursor=pointer]:
+          - /url: /sitemap
+```
