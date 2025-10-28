@@ -18,8 +18,8 @@ export const sgConfig = {
   },
 
   credentials: {
-    email: 'trainee81.glophics@gmail.com',
-    password: '123456',
+    email: 'trainee108.glophics@gmail.com',
+    password: '123456789',
   },
 
   xpaths: {
