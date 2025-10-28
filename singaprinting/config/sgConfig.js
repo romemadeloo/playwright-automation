@@ -12,14 +12,14 @@ export const sgConfig = {
       productSample: 'https://www.singaprinting.com/stickers/paper/art?featured=art-paper-roll', // sample product
     },
     dev: {
-      baseUrl: 'https://dev.singaprinting.com/',
-      domeStickers: 'https://dev.singaprinting.com/stickers/special/dome?featured=1', // sample product
+      baseUrl: 'https://dev-new-product.singaprinting.com/',
+      buttonBadges: 'https://dev-new-product.singaprinting.com/badges/button-badge?featured=1', // sample product
     },
   },
 
   credentials: {
     email: 'trainee81.glophics@gmail.com',
-    password: '1234516',
+    password: '123456',
   },
 
   xpaths: {
