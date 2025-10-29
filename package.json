@@ -5,16 +5,22 @@
   "scripts": {
     "login:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/login.test.js --project=chromium",
     "login:live:sg": "cross-env ENV=live playwright test singaprinting/test/login.test.js --project=chromium",
-    "addCart:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/buttonBadges.test.js --project=chromium",
-    "addCart:live:sg": "cross-env ENV=live playwright test singaprinting/test/buttonBadges.test.js --project=chromium"
-
+    "buttonBadges:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/buttonBadges.test.js --project=chromium",
+    "buttonBadges:live:sg": "cross-env ENV=live playwright test singaprinting/test/buttonBadges.test.js --project=chromium",
+    "mirrorBadges:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/mirrorBadges.test.js --project=chromium",
+    "mirrorBadges:live:sg": "cross-env ENV=live playwright test singaprinting/test/mirrorBadges.test.js --project=chromium",
+    "magneticBadges:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/magneticBadges.test.js --project=chromium",
+    "magneticBadges:live:sg": "cross-env ENV=live playwright test singaprinting/test/magneticBadges.test.js --project=chromium",
+    "customMagnets:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/customMagnets.test.js --project=chromium",
+    "customMagnets:live:sg": "cross-env ENV=live playwright test singaprinting/test/customMagnets.test.js --project=chromium"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@playwright/test": "^1.56.0"
+    "@playwright/test": "^1.56.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "cross-env": "^10.1.0"
