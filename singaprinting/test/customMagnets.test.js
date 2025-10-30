@@ -211,11 +211,11 @@ test('🛒 Add to Cart Flow - Custom Magnets (SingaPrinting) - All Shapes', asyn
           );
           if (await seeMoreButton.isVisible()) {
             await seeMoreButton.first().click();
-            await page.waitForTimeout(100);
+            await page.waitForTimeout(800);
           }
 
           await scrollAndClick(page, qty.xpath, `Quantity: ${qty.qty}`);
-          await page.waitForTimeout(100);
+          await page.waitForTimeout(800);
 
           // Capture combo info and price
           const comboInfo = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[2]').textContent())?.trim() || '';

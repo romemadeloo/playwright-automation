@@ -97,11 +97,11 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
               );
               if (await seeMoreButton.isVisible()) {
                 await seeMoreButton.first().click();
-                await page.waitForTimeout(200);
+                await page.waitForTimeout(800);
               }
 
               await scrollAndClick(page, qty.xpath, `Quantity: ${qty.qty}`);
-              await page.waitForTimeout(200);
+              await page.waitForTimeout(800);
 
               // Capture info
               const comboInfo = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[2]').textContent())?.trim() || '';

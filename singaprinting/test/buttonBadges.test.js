@@ -93,12 +93,12 @@ test('🛒 Add to Cart Flow - Button Badges (SingaPrinting) - All Shapes', async
       for (const size of sizes) {
         console.log(`📏 Size: ${size.label}`);
         await scrollAndClick(page, size.xpath, `Size: ${size.label}`);
-        await page.waitForTimeout(100);
+        await page.waitForTimeout(800);
 
         for (const finishing of finishings) {
           console.log(`🎨 Finishing: ${finishing.name}`);
           await scrollAndClick(page, finishing.xpath, `Finishing: ${finishing.name}`);
-          await page.waitForTimeout(100);
+          await page.waitForTimeout(800);
 
           for (const qty of quantities) {
             console.log(`🧮 Quantity: ${qty.qty}`);
@@ -109,11 +109,11 @@ test('🛒 Add to Cart Flow - Button Badges (SingaPrinting) - All Shapes', async
             );
             if (await seeMoreButton.isVisible()) {
               await seeMoreButton.first().click();
-              await page.waitForTimeout(100);
+              await page.waitForTimeout(800);
             }
 
             await scrollAndClick(page, qty.xpath, `Quantity: ${qty.qty}`);
-            await page.waitForTimeout(100);
+            await page.waitForTimeout(800);
 
             const comboInfo = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[2]').textContent())?.trim() || '';
             const price = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[3]/div[1]/h2').textContent())?.trim() || '';

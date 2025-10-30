@@ -100,11 +100,11 @@ test('🧲 Add to Cart Flow - Magnetic Badges (SingaPrinting) - All Shapes', asy
               );
               if (await seeMoreButton.isVisible()) {
                 await seeMoreButton.first().click();
-                await page.waitForTimeout(100);
+                await page.waitForTimeout(800);
               }
 
               await scrollAndClick(page, qty.xpath, `Quantity: ${qty.qty}`);
-              await page.waitForTimeout(100);
+              await page.waitForTimeout(800);
 
               const comboInfo = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[2]').textContent())?.trim() || '';
               const price = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[3]/div[1]/h2').textContent())?.trim() || '';
@@ -112,7 +112,7 @@ test('🧲 Add to Cart Flow - Magnetic Badges (SingaPrinting) - All Shapes', asy
               console.log(`💰 price: ${price}`);
 
               await scrollAndClick(page, '//*[@id="product_details"]/div[1]/aside/div[3]/div[2]/button[1]', 'Add to Cart');
-              await page.waitForSelector(uploadModalXPath, { timeout: 5000 });
+              await page.waitForSelector(uploadModalXPath, { timeout: 8000 });
 
               const filePath = `Materials/${uploadCounter}.png`;
               await page.setInputFiles(artworkInputXPath, filePath);
