@@ -70,7 +70,7 @@ async function verifyQuantities(page, { expectedBase, expectedModal }) {
     }
 }
 
-test('Verify Quantity Fields for Badges - SingaPrinting', async ({ page }) => {
+test('Verify Quantity Fields for New Products - SingaPrinting', async ({ page }) => {
     const env = process.env.ENV || 'dev';
     const targetEnv = sgConfig.environment[env];
     const baseUrl = targetEnv.baseUrl;
@@ -128,7 +128,7 @@ test('Verify Quantity Fields for Badges - SingaPrinting', async ({ page }) => {
             await verifyQuantities(page, { expectedBase, expectedModal });
         }
 
-        console.log(`\n✅ Finished testing ${product.slug.toUpperCase()} Badge.`);
+        console.log(`\n✅ Finished testing ${product.slug.toUpperCase()}.`);
     }
 
     console.log('\n🎉 All products tested successfully!');
