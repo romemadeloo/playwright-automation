@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { log } from '../utils/logger.js';
+import { log } from '../../utils/logger.js';
 
 const test = base.extend({
   authPage: async ({ page }, use) => {

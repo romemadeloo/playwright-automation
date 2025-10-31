@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { login } from '../utils/login.js';
-import { ospConfig } from '../config/ospConfig.js';
+import { login } from '../../utils/login.js';
+import { saveResultSheet } from '../../utils/saveResult.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
 // Extend timeout (default 60s → 50min)
@@ -153,36 +153,6 @@ test('🪞 Add to Cart Flow - Mirror Badges (OzStickerPrinting) - All Shapes', a
   } catch (err) {
     console.error(`❌ Test stopped early: ${err.message}`);
 } finally {
-  // 📊 Export results to Excel even if interrupted
-  try {
-    const fs = require('fs');
-    const path = require('path');
-
-    const accountName = 'osp'; // 🔧 change this dynamically if needed
-    const folderName = `${accountName}_test-results`;
-
-    //  Ensure folder exists
-    if (!fs.existsSync(folderName)) {
-      fs.mkdirSync(folderName, { recursive: true });
-      console.log(`📁 Created folder: ${folderName}`);
-    }
-
-    //  Timestamped filename
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const fileName = `MirrorBadgesResults_${timestamp}.xlsx`;
-    const filePath = path.join(folderName, fileName);
-
-    //  Generate Excel file
-    const worksheet = XLSX.utils.json_to_sheet(results);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Mirror Badges');
-    XLSX.writeFile(workbook, filePath);
-
-    console.log(`📊 Saved results to: ${filePath}`);
-  } catch (saveErr) {
-    console.error(`⚠️ Failed to save Excel: ${saveErr.message}`);
-  }
-
-  console.log('🎯 Test completed (with or without errors).');
+  saveResultSheet(results, env, 'osp', 'MirrorBadges');
 }
 });

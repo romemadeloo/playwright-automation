@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { sgConfig } from '../config/sgConfig.js';
-import { ospConfig } from '../config/ospConfig.js';
+import { sgConfig } from '../ozstickerprinting/config/sgConfig.js';
+import { ospConfig } from '../ozstickerprinting/config/ospConfig.js';
 
 /**
  * Automatically logs in based on the test path (e.g., singaprinting/test or ozstickerprinting/test)

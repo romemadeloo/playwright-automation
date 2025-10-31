@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { login } from '../utils/login.js';
+import { login } from '../../utils/login.js';
 import { ospConfig } from '../config/ospConfig.js';
+import { saveResultSheet } from '../../utils/saveResult.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
 // Extend timeout (default 60s → 50min)
@@ -224,36 +225,6 @@ test('🛒 Add to Cart Flow - Button Badges (OzStickerPrinting) - All Shapes', a
   } catch (err) {
     console.error(`❌ Test interrupted due to error: ${err.message}`);
   } finally {
-    // 📊 Export results to Excel even if interrupted
-    try {
-      const fs = require('fs');
-      const path = require('path');
-  
-      const accountName = env === 'live' ? 'osp_live' : 'osp_dev';
-      const folderName = `${accountName}_test-sheets-results`;
-  
-      // ✅ Ensure folder exists
-      if (!fs.existsSync(folderName)) {
-        fs.mkdirSync(folderName, { recursive: true });
-        console.log(`📁 Created folder: ${folderName}`);
-      }
-  
-      // 🕒 Timestamped filename
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const fileName = `ButtonBadgesResults_${timestamp}.xlsx`;
-      const filePath = path.join(folderName, fileName);
-  
-      // 📄 Generate Excel file
-      const worksheet = XLSX.utils.json_to_sheet(results);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Button Badges');
-      XLSX.writeFile(workbook, filePath);
-  
-      console.log(`📊 Saved results to: ${filePath}`);
-    } catch (saveErr) {
-      console.error(`⚠️ Failed to save Excel: ${saveErr.message}`);
-    }
-  
-    console.log('🎯 Test completed (with or without errors).');
-  }
+  saveResultSheet(results, env, 'osp', 'ButtonBadges');
+}
 });
