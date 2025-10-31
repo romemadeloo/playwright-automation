@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
-import { sgConfig } from '../config/sgConfig.js';
+import { ospConfig } from '../config/ospConfig.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
 // Extend timeout (default 60s → 50min)
@@ -19,25 +19,25 @@ async function scrollAndClick(page, xpath, description) {
   }
 }
 
-test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async ({ page }) => {
+test('🧲 Add to Cart Flow - Magnetic Badges (OzStickerPrinting) - All Shapes', async ({ page }) => {
   const env = process.env.ENV || 'dev';
-  const targetEnv = sgConfig.environment[env];
+  const targetEnv = ospConfig.environment[env];
   const baseUrl = targetEnv.baseUrl;
 
   console.log(`🌐 Environment: ${env}`);
   console.log(`🔗 Base URL: ${baseUrl}`);
 
-  const results = []; // 📊 Collect all combinations for Excel export
+  const results = []; // 🧾 store all combo results
 
   try {
     // 1️⃣ LOGIN FIRST
     const loggedIn = await login(page, env);
     if (!loggedIn) throw new Error('❌ Login failed — cannot proceed.');
 
-    // 2️⃣ NAVIGATE TO PRODUCT PAGE
-    const productUrl = `${baseUrl}badges/mirror-badge?featured=1`;
+    // 2️⃣ GO TO PRODUCT PAGE
+    const productUrl = `${baseUrl}badges/magnetic-badge?featured=1`;
     await page.goto(productUrl, { waitUntil: 'domcontentloaded' });
-    console.log(`✅ Navigated to Mirror Badges: ${productUrl}`);
+    console.log(`✅ Navigated to Magnetic Badges: ${productUrl}`);
 
     // 3️⃣ DEFINE TEST DATA
     const shapes = [
@@ -45,13 +45,13 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
     ];
 
     const circleSizes = [
-      { label: '58x58mm', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[3]/div/div/ul/li[1]' },
-      { label: '75x75mm', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[3]/div/div/ul/li[2]' },
+      { label: '25x25mm', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[3]/div/div/ul/li[1]' },
+      { label: '32x32mm', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[3]/div/div/ul/li[2]' },
     ];
 
     const finishings = [
       { name: 'Gloss', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[4]/div/div[1]/ul/li[1]' },
-      { name: 'Matte', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[4]/div/div[1]/ul/li[2]' },
+      { name: 'Matte', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[4]/div/div[1]/ul/li[2]' }
     ];
 
     const quantities = [
@@ -64,7 +64,7 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
       { qty: 200, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[5]' },
       { qty: 300, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[6]' },
       { qty: 500, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[7]' },
-      { qty: 1000, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[8]' },
+      { qty: 1000, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[8]' }
     ];
 
     const uploadModalXPath = 'xpath=//*[@id="__layout"]/div/div[1]/header/div[3]/div';
@@ -76,10 +76,11 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
     let uploadCounter = 1;
     const maxFiles = 10;
 
-    // 4️⃣ LOOP THROUGH SHAPES → SIZES → FINISHINGS → QUANTITIES
+    // 4️⃣ LOOP: SHAPE → SIZE → FINISH → QTY
     for (const shape of shapes) {
+      console.log(`🟢 Shape: ${shape.name}`);
       await scrollAndClick(page, shape.xpath, `Shape: ${shape.name}`);
-      await page.waitForTimeout(800);
+      await page.waitForTimeout(1000);
 
       const sizes = shape.name === 'Circle'
         ? circleSizes
@@ -91,6 +92,8 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
           await scrollAndClick(page, finishing.xpath, `Finishing: ${finishing.name}`);
           for (const qty of quantities) {
             try {
+              console.log(`🧮 Quantity: ${qty.qty}`);
+
               // Click See More if needed
               const seeMoreButton = page.locator(
                 'xpath=//*[@id="product_details"]/div[1]/aside/div[1]/section[5]//li[contains(@class,"see_more")] | //*[@id="product_details"]/div[1]/aside/div[1]/section[5]//a[contains(text(),"See More")]'
@@ -103,20 +106,18 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
               await scrollAndClick(page, qty.xpath, `Quantity: ${qty.qty}`);
               await page.waitForTimeout(800);
 
-              // Capture info
               const comboInfo = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[2]').textContent())?.trim() || '';
               const price = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[3]/div[1]/h2').textContent())?.trim() || '';
-
               console.log(`ℹ️ comboInfo: ${comboInfo}`);
               console.log(`💰 price: ${price}`);
 
-              // Add to Cart
               await scrollAndClick(page, '//*[@id="product_details"]/div[1]/aside/div[3]/div[2]/button[1]', 'Add to Cart');
+              await page.waitForSelector(uploadModalXPath, { timeout: 8000 });
 
-              await page.waitForSelector(uploadModalXPath, { timeout: 5000 });
               const filePath = `Materials/${uploadCounter}.png`;
               await page.setInputFiles(artworkInputXPath, filePath);
-              uploadCounter = uploadCounter >= maxFiles ? 1 : uploadCounter + 1;
+              uploadCounter++;
+              if (uploadCounter > maxFiles) uploadCounter = 1;
 
               const note = `${shape.name} / ${size.label} / ${finishing.name} / Qty: ${qty.qty} / Price: ${price}`;
               await page.locator(specialInstructionXPath).fill(note);
@@ -152,37 +153,37 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
 
   } catch (err) {
     console.error(`❌ Test stopped early: ${err.message}`);
-} finally {
-  // 📊 Export results to Excel even if interrupted
-  try {
-    const fs = require('fs');
-    const path = require('path');
-
-    const accountName = 'sg'; // 🔧 change this dynamically if needed
-    const folderName = `${accountName}_test-results`;
-
-    // ✅ Ensure folder exists
-    if (!fs.existsSync(folderName)) {
-      fs.mkdirSync(folderName, { recursive: true });
-      console.log(`📁 Created folder: ${folderName}`);
+  } finally {
+    // 📊 Export results to Excel even if interrupted
+    try {
+      const fs = require('fs');
+      const path = require('path');
+  
+      const accountName = 'sg'; // 🔧 change this dynamically if needed
+      const folderName = `${accountName}_test-results`;
+  
+      // ✅ Ensure folder exists
+      if (!fs.existsSync(folderName)) {
+        fs.mkdirSync(folderName, { recursive: true });
+        console.log(`📁 Created folder: ${folderName}`);
+      }
+  
+      // 🕒 Timestamped filename
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const fileName = `MagneticBadgesResults_${timestamp}.xlsx`;
+      const filePath = path.join(folderName, fileName);
+  
+      // 📄 Generate Excel file
+      const worksheet = XLSX.utils.json_to_sheet(results);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Magnetic Badges');
+      XLSX.writeFile(workbook, filePath);
+  
+      console.log(`📊 Saved results to: ${filePath}`);
+    } catch (saveErr) {
+      console.error(`⚠️ Failed to save Excel: ${saveErr.message}`);
     }
-
-    // 🕒 Timestamped filename
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const fileName = `MirrorBadgesResults_${timestamp}.xlsx`;
-    const filePath = path.join(folderName, fileName);
-
-    // 📄 Generate Excel file
-    const worksheet = XLSX.utils.json_to_sheet(results);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Mirror Badges');
-    XLSX.writeFile(workbook, filePath);
-
-    console.log(`📊 Saved results to: ${filePath}`);
-  } catch (saveErr) {
-    console.error(`⚠️ Failed to save Excel: ${saveErr.message}`);
+  
+    console.log('🎯 Test completed (with or without errors).');
   }
-
-  console.log('🎯 Test completed (with or without errors).');
-}
 });

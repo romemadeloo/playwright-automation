@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
-import { sgConfig } from '../config/sgConfig.js';
+import { ospConfig } from '../config/ospConfig.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
 // Extend timeout (default 60s → 50min)
@@ -45,9 +45,9 @@ async function scrollAndClick(page, xpath, description) {
 }
 
 
-test('🛒 Add to Cart Flow - Button Badges (SingaPrinting) - All Shapes', async ({ page }) => {
+test('🛒 Add to Cart Flow - Button Badges (OzStickerPrinting) - All Shapes', async ({ page }) => {
   const env = process.env.ENV || 'dev';
-  const targetEnv = sgConfig.environment[env];
+  const targetEnv = ospConfig.environment[env];
   const baseUrl = targetEnv.baseUrl;
 
   console.log(`🌐 Environment: ${env}`);
@@ -229,7 +229,7 @@ test('🛒 Add to Cart Flow - Button Badges (SingaPrinting) - All Shapes', async
       const fs = require('fs');
       const path = require('path');
   
-      const accountName = env === 'live' ? 'sg_live' : 'sg_dev';
+      const accountName = env === 'live' ? 'osp_live' : 'osp_dev';
       const folderName = `${accountName}_test-sheets-results`;
   
       // ✅ Ensure folder exists

@@ -154,19 +154,36 @@ test('🧲 Add to Cart Flow - Magnetic Badges (SingaPrinting) - All Shapes', asy
   } catch (err) {
     console.error(`❌ Test stopped early: ${err.message}`);
   } finally {
-    // 📊 Always save to Excel, even if interrupted
+    // 📊 Export results to Excel even if interrupted
     try {
+      const fs = require('fs');
+      const path = require('path');
+  
+      const accountName = 'sg'; // 🔧 change this dynamically if needed
+      const folderName = `${accountName}_test-results`;
+  
+      // ✅ Ensure folder exists
+      if (!fs.existsSync(folderName)) {
+        fs.mkdirSync(folderName, { recursive: true });
+        console.log(`📁 Created folder: ${folderName}`);
+      }
+  
+      // 🕒 Timestamped filename
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       const fileName = `MagneticBadgesResults_${timestamp}.xlsx`;
+      const filePath = path.join(folderName, fileName);
+  
+      // 📄 Generate Excel file
       const worksheet = XLSX.utils.json_to_sheet(results);
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, 'Magnetic Badges');
-      XLSX.writeFile(workbook, fileName);
-      console.log(`📊 Saved results to: ${fileName}`);
+      XLSX.writeFile(workbook, filePath);
+  
+      console.log(`📊 Saved results to: ${filePath}`);
     } catch (saveErr) {
       console.error(`⚠️ Failed to save Excel: ${saveErr.message}`);
     }
-
+  
     console.log('🎯 Test completed (with or without errors).');
   }
 });

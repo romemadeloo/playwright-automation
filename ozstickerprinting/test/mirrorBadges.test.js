@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../utils/login.js';
-import { sgConfig } from '../config/sgConfig.js';
+import { ospConfig } from '../config/ospConfig.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
 // Extend timeout (default 60s → 50min)
@@ -19,9 +19,9 @@ async function scrollAndClick(page, xpath, description) {
   }
 }
 
-test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async ({ page }) => {
+test('🪞 Add to Cart Flow - Mirror Badges (OzStickerPrinting) - All Shapes', async ({ page }) => {
   const env = process.env.ENV || 'dev';
-  const targetEnv = sgConfig.environment[env];
+  const targetEnv = ospConfig.environment[env];
   const baseUrl = targetEnv.baseUrl;
 
   console.log(`🌐 Environment: ${env}`);
@@ -158,21 +158,21 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
     const fs = require('fs');
     const path = require('path');
 
-    const accountName = 'sg'; // 🔧 change this dynamically if needed
+    const accountName = 'osp'; // 🔧 change this dynamically if needed
     const folderName = `${accountName}_test-results`;
 
-    // ✅ Ensure folder exists
+    //  Ensure folder exists
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName, { recursive: true });
       console.log(`📁 Created folder: ${folderName}`);
     }
 
-    // 🕒 Timestamped filename
+    //  Timestamped filename
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const fileName = `MirrorBadgesResults_${timestamp}.xlsx`;
     const filePath = path.join(folderName, fileName);
 
-    // 📄 Generate Excel file
+    //  Generate Excel file
     const worksheet = XLSX.utils.json_to_sheet(results);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Mirror Badges');
