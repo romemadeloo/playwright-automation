@@ -64,14 +64,13 @@ async function verifyQuantities(page, { expectedBase, expectedModal }) {
             }
         }
 
-        // Close modal if necessary
         await page.keyboard.press('Escape');
     } else {
         console.log('ℹ️ No modal quantities found.');
     }
 }
 
-test('Verify Button Badge Quantity Fields - SingaPrinting', async ({ page }) => {
+test('Verify Quantity Fields for Badges - SingaPrinting', async ({ page }) => {
     const env = process.env.ENV || 'dev';
     const targetEnv = sgConfig.environment[env];
     const baseUrl = targetEnv.baseUrl;
@@ -83,11 +82,16 @@ test('Verify Button Badge Quantity Fields - SingaPrinting', async ({ page }) => 
     const loggedIn = await login(page, env);
     if (!loggedIn) throw new Error('❌ Login failed — cannot proceed.');
 
-    const productSlugs = ['button', 'mirror', 'magnetic'];
+    const products = [
+        { category: 'badges', slug: 'button-badge' },
+        { category: 'badges', slug: 'mirror-badge' },
+        { category: 'badges', slug: 'magnetic-badge' },
+        { category: 'magnets', slug: 'custom-magnet' },
+    ];
 
-    for (const slug of productSlugs) {
-        const productUrl = `${baseUrl}badges/${slug}-badge?featured=1`;
-        console.log(`\n🔄 Navigating to ${slug.toUpperCase()} Badge: ${productUrl}`);
+    for (const product of products) {
+        const productUrl = `${baseUrl}${product.category}/${product.slug}?featured=1`;
+        console.log(`\n🔄 Navigating to ${product.slug.toUpperCase()}: ${productUrl}`);
         await page.goto(productUrl, { waitUntil: 'domcontentloaded' });
 
         // VERIFY SHAPE SECTION
@@ -98,7 +102,7 @@ test('Verify Button Badge Quantity Fields - SingaPrinting', async ({ page }) => 
         // FIND SHAPES
         const shapeOptions = shapeSection.locator('.select_items > ul > li');
         const shapeCount = await shapeOptions.count();
-        console.log(`🎨 Found ${shapeCount} shapes`);
+        console.log(`🎨 Found ${shapeCount} ${shapeCount === 1 ? 'shape' : 'shapes'}`);
 
         // LOOP THROUGH EACH SHAPE
         for (let i = 0; i < shapeCount; i++) {
@@ -112,13 +116,19 @@ test('Verify Button Badge Quantity Fields - SingaPrinting', async ({ page }) => 
             await page.waitForTimeout(1000);
 
             // VERIFY QUANTITIES
-            await verifyQuantities(page, {
-                expectedBase: ['5', '10'],
-                expectedModal: ['20', '30', '50', '100', '200', '300', '500', '1000']
-            });
+            let expectedBase, expectedModal;
+            if (product.category === 'badges') {
+                expectedBase = ['5', '10'];
+                expectedModal = ['20', '30', '50', '100', '200', '300', '500', '1000'];
+            } else if (product.category === 'magnets') {
+                expectedBase = ['50', '100'];
+                expectedModal = ['200', '300', '500', '1000', '2000', '5000'];
+            }
+
+            await verifyQuantities(page, { expectedBase, expectedModal });
         }
 
-        console.log(`\n✅ Finished testing ${slug.toUpperCase()} Badge.`);
+        console.log(`\n✅ Finished testing ${product.slug.toUpperCase()} Badge.`);
     }
 
     console.log('\n🎉 All products tested successfully!');
