@@ -12,7 +12,7 @@ export const sgConfig = {
       productSample: 'https://www.singaprinting.com/stickers/paper/art?featured=art-paper-roll', // sample product
     },
     dev: {
-      baseUrl: 'https://dev-new-product.singaprinting.com/',
+      baseUrl: 'https://dev.singaprinting.com/',
       buttonBadges: 'https://dev-new-product.singaprinting.com/badges/button-badge?featured=1', // sample product
     },
   },
@@ -33,11 +33,11 @@ export const sgConfig = {
     signInSubmit: '//*[@id="#modal"]/div/div/div[2]/div/form/div[4]/button',
     errorMessage: '//*[@id="#modal"]/div/div/div[2]/div/form/p',
 
-    // 🔹 Future use (Product & Cart)
-    productPage: '//*[@id="product_details"]',
-    addToCartButton: '//*[@id="product_details"]/div[1]/aside/div[3]/div[2]/button[1]',
-    cartIcon: '//*[@id="__layout"]/div/div[1]/header/div[1]/div/div/div[2]/ul/li[3]/a',
-    checkoutButton: '//*[@id="cart"]/div/div/div[2]/a',
+    uploadModalXPath: 'xpath=//*[@id="__layout"]/div/div[1]/header/div[3]/div',
+    artworkInputXPath: 'xpath=//*[@id="artwork_input_file"]',
+    specialInstructionXPath: 'xpath=//*[@id="__layout"]/div/div[1]/header/div[3]/div/div[2]/div[1]/textarea',
+    continueButtonXPath: 'xpath=//*[@id="__layout"]/div/div[1]/header/div[3]/div/div[2]/div[2]/div/button',
+    cartCloseXPath: 'xpath=//*[@id="__layout"]/div/div[1]/header/div[1]/div/div/div[2]/ul/li[3]/div/a',
   },
 
   urls: {
