@@ -6,7 +6,9 @@
     "login:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/login.test.js --project=chromium",
     "login:live:sg": "cross-env ENV=live playwright test singaprinting/test/login.test.js --project=chromium",
     "addCart:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/buttonBadges.test.js --project=chromium",
-    "addCart:live:sg": "cross-env ENV=live playwright test singaprinting/test/buttonBadges.test.js --project=chromium"
+    "addCart:live:sg": "cross-env ENV=live playwright test singaprinting/test/buttonBadges.test.js --project=chromium",
+    "verifyQuantity:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/verifyQuantity.test.js --project=chromium",
+    "verifyQuantity:live:sg": "cross-env ENV=live playwright test singaprinting/test/verifyQuantity.test.js --project=chromium"
 
   },
   "keywords": [],

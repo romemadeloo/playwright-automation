@@ -12,7 +12,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
     viewport: null, // allow full screen
     launchOptions: {
-      args: ['--start-maximized'],
+      args: [
+        '--window-position=-1920,0',
+        '--window-size=1920,1080'
+      ],
     },
   },
   reporter: [
