@@ -14,8 +14,9 @@
     "customMagnets:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/customMagnets.test.js --project=chromium",
     "customMagnets:live:sg": "cross-env ENV=live playwright test singaprinting/test/customMagnets.test.js --project=chromium",
     "verifyQuantity:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/verifyQuantity.test.js --project=chromium",
-    "verifyQuantity:live:sg": "cross-env ENV=live playwright test singaprinting/test/verifyQuantity.test.js --project=chromium"
-
+    "verifyQuantity:live:sg": "cross-env ENV=live playwright test singaprinting/test/verifyQuantity.test.js --project=chromium",
+    "verifyAttributes:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/verifyAttributes.test.js --project=chromium",
+    "verifyAttributes:live:sg": "cross-env ENV=live playwright test singaprinting/test/verifyAttributes.test.js --project=chromium"
   },
   "keywords": [],
   "author": "",
