@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { sgConfig } from '../ozstickerprinting/config/sgConfig.js';
+import { sgConfig } from '../singaprinting/config/sgConfig.js';
 import { ospConfig } from '../ozstickerprinting/config/ospConfig.js';
 
 /**

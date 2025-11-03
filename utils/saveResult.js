@@ -13,9 +13,12 @@ import * as XLSX from 'xlsx';
  */
 export function saveResultSheet(results, env, account, testName = 'TestResults') {
   try {
-    // 🧭 Build folder name (e.g., osp_dev_test-sheets-results)
+    // 🧭 Base path (your preferred test-results folder)
+    const basePath = 'playwright-automation/test-results';
+
+    // 🧭 Build subfolder (e.g., test-results/sg_live_test-sheets-results)
     const accountName = `${account}_${env}`;
-    const folderName = `${accountName}_test-sheets-results`;
+    const folderName = path.join(basePath, `${accountName}_test-sheets-results`);
 
     // ✅ Ensure folder exists
     if (!fs.existsSync(folderName)) {

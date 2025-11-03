@@ -1,0 +1,120 @@
+{
+  "url": "https://www.singaprinting.com/badges/magnetic-badge?featured=1",
+  "quote_banner": {
+    "images": [
+        "https://static.singaprinting.com/v2/live/images/products/gallery/magnetic-badge-1.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/magnetic-badge-2.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/magnetic-badge-3.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/magnetic-badge-1.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/magnetic-badge-2.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/magnetic-badge-3.webp"
+    ],
+    "thumbnails": [
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/magnetic-badge-1.webp",
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/magnetic-badge-2.webp",
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/magnetic-badge-3.webp"
+    ],
+    "buttons": ["carousel_banner_prev", "carousel_banner_next"]
+  },
+  "content_container": {
+    "title": "Magnetic Badges",
+    "subtitle": "Stylish and Secure – No Pins, No Damage",
+    "descriptions": [
+      "Introducing our Custom Magnetic Badge — the perfect blend of innovation, convenience, and style. Designed with a magnetic backplate, these badges attach securely without piercing clothing, making them the preferred choice for professionals and event organisers who want a clean, polished look.",
+      "Made with a premium-quality metal or plastic face printed with your custom design, name, or logo, and a strong dual-magnet system on the back for easy attachment. Unlike traditional pin badges, no pins or clips are required — meaning no holes, no fabric damage, and maximum comfort.",
+      "Each badge is produced using high-resolution full-colour printing and is available in Glossy or Matte finishes. Choose from various shapes and sizes to suit your brand or event needs.",
+      "Perfect for corporate identity, uniforms, events, and exhibitions, Magnetic Badges combine elegance with functionality — helping your brand stand out effortlessly."
+    ],
+    "guide_video_thumbnail": "https://static.singaprinting.com/v2/images/badges_and_magnets/thumbnail/magnetic-badge.png",
+    "perfect_for": [
+      "Corporate offices - Professional, uniform ID display",
+      "Retail staff - Easy on-and-off during shift changes",
+      "Trade shows & expos - Ideal for temporary name tags",
+      "Event staff & volunteers - Secure badge wear without wardrobe damage",
+      "Medical personnel - Smooth surfaces, easy to sanitise"
+    ],
+    "faq": [
+      {
+        "question": "What is a Magnetic Badge?",
+        "answer": "A Magnetic Badge is a name or logo badge that attaches using magnets instead of pins or clips, offering a damage-free and comfortable way to display identification."
+      },
+      {
+        "question": "Can I print my company logo or employee name?",
+        "answer": "Absolutely. We offer full-colour printing with your logo, name, and position, customised to your brand style."
+      },
+      {
+        "question": "Can the badge be dropped or damaged easily?",
+        "answer": "The badge is durable, but avoid dropping it on hard surfaces to protect the magnet alignment and printed surface."
+      },
+      {
+        "question": "Do you offer design assistance?",
+        "answer": "Yes, our team can help adjust your artwork for the best printing quality, including logo resizing, colour matching, and layout alignment."
+      },
+      {
+        "question": "Do you offer bulk orders or wholesale pricing?",
+        "answer": "Yes, we offer bulk discounts for corporate, school, and event orders. Contact our Custom Service team for a personalised quote."
+      },
+      {
+        "question": "What is the production and delivery time?",
+        "answer": "Typical turnaround time takes 7–10 business days including printing and delivery for bulk or customised orders."
+      }
+    ]
+  },
+    "product_info": {
+    "hero_image": "https://static.singaprinting.com/v2/images/badges_and_magnets/hero/mirror-badge.png",
+    "finishing":{
+    "description": "Our custom button badges come with premium finishing options designed to bring your design to life and match your style preferences. Each finish is crafted to ensure durability and long-lasting appeal, suitable for both indoor and outdoor use.",
+    "options": [
+        {
+          "title": "Glossy",
+          "description": "This finish uses an opaque white base material with a glossy coating that enhances colour vibrancy and sharpness. The shiny surface catches the light, making your badge pop with brightness. However, because the material itself is glossy, it slightly diffuses the reflection on the printed area, giving a balanced sheen without excessive glare.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/glossy-finish-v2.png"
+        },
+        {
+          "title": "Matte",
+          "description": "The matte finish features a pre-laminated material that reduces glare and gives your badge a soft, elegant appearance. While it offers less shine than glossy, it still allows some reflection from the ink’s sheen, creating a refined, subtle look that’s perfect for modern and minimalist designs.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/matte-finish-v2.png"
+        }
+      ]
+    },
+    "precautions": {
+      "title": "Precautions before ordering",
+      "description": "We aim to deliver the best quality, but due to the nature of badge manufacturing, certain small variations may occur. Please review the following points carefully before placing your order.",
+      "notices": [
+        {
+          "title": "Caution: Needle Pin on the Back",
+          "description": "The back of each badge is equipped with a metal pin for fastening. Please handle with care when opening or attaching the badge to avoid injury.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/needles-back-badge.png"
+        },
+        {
+          "title": "Possible Print Misalignment",
+          "description": "Due to the manufacturing process, the printed design may shift slightly (1–2 mm) in any direction (up, down, left, or right). This is within the normal tolerance range.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/phenomenon-slipping-print-v2.png"
+        },
+        {
+          "title": "Note on Heart-Shaped Badges",
+          "description": "Heart-shaped badges are specially cut and assembled. The outer trim and edges may vary slightly from standard round badges. (Refer to product photo for details.)",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/about-heart-shape-v2.png"
+        }
+      ]
+    },
+    "shapes_sizes": {
+      "title": "Shapes & Sizes",
+      "description": "Choose the perfect badge to match your vision. Whether you prefer classic circles, striking squares, or unique custom die-cut shapes, we offer flexible sizing options to bring your ideas to life with precision and style.",
+      "images": [
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-25x25.png",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/square-32x32.png"
+     ]
+    },
+    "downloads": [
+      {
+        "icon": "https://static.singaprinting.com/v2/images/badges_and_magnets/download-template-icon/illustrator.png",
+        "type": "AI Template"
+      },
+      {
+        "icon": "https://static.singaprinting.com/v2/images/badges_and_magnets/download-template-icon/acrobat.png",
+        "type": "PDF Template"
+      }
+    ]
+  }
+}
