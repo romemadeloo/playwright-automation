@@ -2,6 +2,9 @@
 node_modules/
 
 # Playwright test results
+screenshots/
+sg_dev_test-sheets-results/
+sg_live_test-sheets-results/
 test-results/
 playwright-report/
 blob-report/
