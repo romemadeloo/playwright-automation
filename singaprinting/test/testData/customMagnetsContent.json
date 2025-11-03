@@ -1,0 +1,76 @@
+{
+  "url": "https://www.singaprinting.com/magnets/custom-magnet?featured=1",
+  "quote_banner": {
+    "images": [
+        "https://static.singaprinting.com/v2/live/images/products/gallery/custom-magnet-1.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/custom-magnet-2.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/custom-magnet-3.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/custom-magnet-1.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/custom-magnet-2.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/custom-magnet-3.webp"
+    ],
+    "thumbnails": [
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/custom-magnet-1.webp",
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/custom-magnet-2.webp",
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/custom-magnet-3.webp"
+    ],
+    "buttons": ["carousel_banner_prev", "carousel_banner_next"]
+  },
+  "content_container": {
+    "title": "Custom Magnets",
+    "subtitle": "Creative, Functional, and Magnetic — Perfect for Every Space",
+    "descriptions": [
+      "Turn your artwork, brand, or message into something that sticks with our Custom Magnets. Whether you’re promoting your business, decorating your space, or creating unique gifts, these high-quality magnets are designed to make a lasting impression — literally and visually.",
+      "Our Custom Magnets are printed in vivid full colour and crafted using durable magnetic materials that firmly attach to any metal surface — from refrigerators and lockers to office whiteboards.",
+      "Choose from a variety of shapes, sizes, and finishes to match your creative needs. Each magnet is produced with precision printing for sharp detail and long-lasting colour vibrancy."
+    ],
+    "guide_video_thumbnail": "https://static.singaprinting.com/v2/images/badges_and_magnets/thumbnail/custom-magnet.png",
+    "perfect_for": [
+      "Corporate Branding - Logo magnets for offices, events, or client giveaways.",
+      "Home Décor - Family photos, art prints, or travel memories on the fridge.",
+      "Event Souvenirs - Wedding, party, or event keepsakes your guests will love.",
+      "Retail Merchandise - Sell your designs as collectible magnets or souvenirs.",
+      "Car Magnets - Promote your business or cause on the go.",
+      "Photography Gifts - Custom photo magnets for gifts or online shops.",
+      "Promotional Giveaways - Affordable yet memorable marketing items."
+    ],
+    "faq": [
+      {
+        "question": "Can I customize the design?",
+        "answer": "Yes! You can print your logo, artwork, or any design of your choice to create unique magnetic stickers for personal or business use."
+      },
+      {
+        "question": "Where can I use magnetic stickers?",
+        "answer": "They work perfectly on fridges, lockers, whiteboards, cars, filing cabinets, or any smooth metal surface."
+      },
+      {
+        "question": "Are they reusable?",
+        "answer": "Absolutely! You can remove and reposition them as many times as you like without leaving residue or marks."
+      },
+      {
+        "question": "What sizes and shapes are available?",
+        "answer": "We offer a variety of standard sizes and shapes, and we can also produce custom shapes to match your design."
+      },
+      {
+        "question": "Will they damage surfaces?",
+        "answer": "No. Magnetic stickers are non-adhesive, so they won’t leave any sticky residue or cause scratches when used properly."
+      }
+    ]
+  },
+  "product_info": {
+    "shapes_sizes": {
+      "title": "Shapes & Sizes",
+      "description": "Choose from a wide variety of shapes and sizes to perfectly match your design needs. Whether you’re looking for classic circles, bold squares, or custom die-cut options, we offer flexible dimensions to bring your ideas to life."
+    },
+    "downloads": [
+      {
+        "icon": "https://static.singaprinting.com/v2/images/badges_and_magnets/download-template-icon/illustrator.png",
+        "type": "AI Template"
+      },
+      {
+        "icon": "https://static.singaprinting.com/v2/images/badges_and_magnets/download-template-icon/acrobat.png",
+        "type": "PDF Template"
+      }
+    ]
+  }
+}

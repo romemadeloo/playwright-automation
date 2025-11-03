@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { login } from '../../utils/login.js';
-import { sgConfig } from '../config/sgConfig.js';
-import { saveResultSheet } from '../../utils/saveResult.js';
+import { login } from '../../../utils/login.js';
+import { sgConfig } from '../../config/sgConfig.js';
+import { saveResultSheet } from '../../../utils/saveResult.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
 // Extend timeout (default 60s → 50min)

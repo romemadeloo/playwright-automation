@@ -1,0 +1,119 @@
+{
+  "url": "https://www.singaprinting.com/badges/button-badge?featured=1",
+  "quote_banner": {
+    "images": [
+        "https://static.singaprinting.com/v2/live/images/products/gallery/button-badge-1.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/button-badge-2.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/button-badge-3.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/button-badge-1.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/button-badge-2.webp",
+        "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/button-badge-3.webp"
+    ],
+    "thumbnails": [
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/button-badge-1.webp",
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/button-badge-2.webp",
+    "https://static.singaprinting.com/v2/live/images/products/gallery/77x77/button-badge-3.webp"
+    ],
+    "buttons": ["carousel_banner_prev", "carousel_banner_next"]
+  },
+  "content_container": {
+    "title": "Custom Button Badges",
+    "subtitle": "Small details, big impact – perfect for brands, events, and everyday style.",
+    "descriptions": [
+      "Bring your creativity to life with our high-quality Custom Button Badges, the perfect blend of design, durability, and personality. Ideal for events, campaigns, branding, and gifts, our button badges are customised with premium-quality materials and precision printing. Each badge delivers vibrant colours, clean designs, and strong pin-back fastening for easy wear.",
+      "Whether you’re promoting a brand, supporting a cause, or celebrating a special occasion, our button badges are a fun and effective way to spread your message. Available in multiple shapes, sizes, and finishes (Glossy or Matte), they’re lightweight, durable, and easy to distribute — making them a favourite choice for marketing campaigns, party favours, or artist merch."
+    ],
+    "guide_video_thumbnail": "https://static.singaprinting.com/v2/images/badges_and_magnets/thumbnail/button-badge.png",
+    "perfect_for": [
+      "Available in various shapes and sizes - student clubs , prefect badges, and event souvenirs.",
+      "Corporate & Branding - promotional giveaways, staff name tags, and trade shows.",
+      "Events & Festivals - ideal for campaigns, concerts, rallies, and exhibitions.",
+      "Retail & Fashion - trendy accessories, collectible merch, or packaging add-ons.",
+      "Personal Gifts - custom designs for birthdays, weddings, and holidays.",
+      "Nonprofit & Causes - awareness campaigns, charity drives, and fundraisers."
+    ],
+    "faq": [
+      {
+        "question": "What material are the button badges made of?",
+        "answer": "They are made from high-quality metal with a printed paper insert and protective mylar coating for durability and clarity."
+      },
+      {
+        "question": "Can I print full-colour designs?",
+        "answer": "Yes! We use high-quality CMYK printing for vivid, accurate colours that bring your artwork to life."
+      },
+      {
+        "question": "Are your button badges waterproof?",
+        "answer": "Yes, both Glossy and Matte badges are coated for water resistance and scratch protection."
+      },
+      {
+        "question": "Are the button badges safe for children?",
+        "answer": "They are generally safe, but since they contain a sharp pin at the back, adult supervision is recommended for young children."
+      },
+      {
+        "question": "How long does delivery take?",
+        "answer": "The entire process, including production and delivery, typically takes 9–10 business days from the time your order is confirmed."
+      }
+    ]
+  },
+  "product_info": {
+    "hero_image": "https://static.singaprinting.com/v2/images/badges_and_magnets/hero/button-badge.png",
+    "finishing": {
+    "description": "Our custom button badges come with premium finishing options designed to bring your design to life and match your style preferences. Each finish is crafted to ensure durability and long-lasting appeal, suitable for both indoor and outdoor use.",
+    "options": [
+        {
+          "title": "Glossy",
+          "description": "This finish uses an opaque white base material with a glossy coating that enhances colour vibrancy and sharpness. The shiny surface catches the light, making your badge pop with brightness. However, because the material itself is glossy, it slightly diffuses the reflection on the printed area, giving a balanced sheen without excessive glare.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/glossy-finish-v2.png"
+        },
+        {
+          "title": "Matte",
+          "description": "The matte finish features a pre-laminated material that reduces glare and gives your badge a soft, elegant appearance. While it offers less shine than glossy, it still allows some reflection from the ink’s sheen, creating a refined, subtle look that’s perfect for modern and minimalist designs.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/matte-finish-v2.png"
+        }
+      ]
+    },
+    "precautions": {
+      "title": "Precautions before ordering",
+      "description": "We aim to deliver the best quality, but due to the nature of badge manufacturing, certain small variations may occur. Please review the following points carefully before placing your order.",
+      "notices": [
+        {
+          "title": "Caution: Needle Pin on the Back",
+          "description": "The back of each badge is equipped with a metal pin for fastening. Please handle with care when opening or attaching the badge to avoid injury.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/needles-back-badge.png"
+        },
+        {
+          "title": "Possible Print Misalignment",
+          "description": "Due to the manufacturing process, the printed design may shift slightly (1–2 mm) in any direction (up, down, left, or right). This is within the normal tolerance range.",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/phenomenon-slipping-print-v2.png"
+        },
+        {
+          "title": "Note on Heart-Shaped Badges",
+          "description": "Heart-shaped badges are specially cut and assembled. The outer trim and edges may vary slightly from standard round badges. (Refer to product photo for details.)",
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/about-heart-shape-v2.png"
+        }
+      ]
+    },
+    "shapes_sizes": {
+      "title": "Shapes & Sizes",
+      "description": "Choose the perfect badge to match your vision. Whether you prefer classic circles, striking squares, or unique custom die-cut shapes, we offer flexible sizing options to bring your ideas to life with precision and style.",
+      "images": [
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-32x32.png",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/square-37x37.png",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-44x44.png",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/hearth-57x51.png",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-58x58.png",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-75x75.png"
+     ]
+    },
+    "downloads": [
+      {
+        "icon": "https://static.singaprinting.com/v2/images/badges_and_magnets/download-template-icon/illustrator.png",
+        "type": "AI Template"
+      },
+      {
+        "icon": "https://static.singaprinting.com/v2/images/badges_and_magnets/download-template-icon/acrobat.png",
+        "type": "PDF Template"
+      }
+    ]
+  }
+}
