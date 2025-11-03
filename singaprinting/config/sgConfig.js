@@ -13,8 +13,8 @@ export const sgConfig = {
       magneticBadge: 'https://www.singaprinting.com/badges/magnetic'
     },
     dev: {
-      baseUrl: 'https://dev-new-product.singaprinting.com/',
-      magneticBadge: 'https://dev-new-product.singaprinting.com/badges/magnetic-badge'
+      baseUrl: 'https://dev.singaprinting.com/',
+      magneticBadge: 'https://dev.singaprinting.com/badges/magnetic-badge?featured=1'
     },
   },
 

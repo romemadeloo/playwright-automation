@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { sgConfig } from '../config/sgConfig.js';
 import { login } from './helpers/loginHelper.js';
 
-const env = process.env.ENV || 'live';
+const env = process.env.ENV || 'dev';
 const targetEnv = sgConfig.environment[env];
 const baseUrl = targetEnv.baseUrl;
 

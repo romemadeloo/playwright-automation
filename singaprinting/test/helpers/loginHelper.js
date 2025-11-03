@@ -1,6 +1,6 @@
 import { sgConfig } from '../../config/sgConfig.js';
 
-const env = process.env.ENV || 'live';
+const env = process.env.ENV || 'dev';
 const targetEnv = sgConfig.environment[env];
 const { credentials, xpaths } = sgConfig;
 const baseUrl = targetEnv.baseUrl;
