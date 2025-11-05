@@ -16,27 +16,27 @@
   "buttonBadges:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/test/orderingTest/buttonBadges.test.js --project=chromium",
   "buttonBadges:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/test/orderingTest/buttonBadges.test.js --project=chromium",
   
-  "mirrorBadges:dev:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/orderingTest/mirrorBadges.test.js --project=chromium",
-  "mirrorBadges:dev:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/orderingTest/mirrorBadges.test.js --project=chromium",
-  "mirrorBadges:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/orderingTest/mirrorBadges.test.js --project=chromium",
-  "mirrorBadges:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/orderingTest/mirrorBadges.test.js --project=chromium",
+  "mirrorBadges:dev:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
+  "mirrorBadges:dev:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
+  "mirrorBadges:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
+  "mirrorBadges:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
 
-  "mirrorBadgesContent:live:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/orderingTest/mirrorBadgesContent.test.js --project=chromium",
-  "mirrorBadgesContent:live:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/orderingTest/mirrorBadgesContent.test.js --project=chromium",
+  "mirrorBadgesContent:live:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/test/contentTest/mirrorBadgesContent.test.js --project=chromium",
+  "mirrorBadgesContent:live:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/test/contentTest/mirrorBadgesContent.test.js --project=chromium",
 
 
-  "magneticBadges:dev:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/orderingTest/magneticBadges.test.js --project=chromium",
-  "magneticBadges:dev:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/orderingTest/magneticBadges.test.js --project=chromium",
-  "magneticBadges:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/orderingTest/magneticBadges.test.js --project=chromium",
-  "magneticBadges:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/orderingTest/magneticBadges.test.js --project=chromium",
+  "magneticBadges:dev:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
+  "magneticBadges:dev:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
+  "magneticBadges:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
+  "magneticBadges:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
 
-  "magneticBadgesContent:live:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/contentTest/magneticBadgesContent.test.js --project=chromium",
-  "magneticBadgesContent:live:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/contentTest/magneticBadgesContent.test.js --project=chromium",
+  "magneticBadgesContent:live:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/test/test/contentTest/magneticBadgesContent.test.js --project=chromium",
+  "magneticBadgesContent:live:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/test/test/contentTest/magneticBadgesContent.test.js --project=chromium",
 
-  "customMagnets:dev:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/orderingTest/customMagnets.test.js --project=chromium",
-  "customMagnets:dev:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/orderingTest/customMagnets.test.js --project=chromium",
-  "customMagnets:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/orderingTest/customMagnets.test.js --project=chromium",
-  "customMagnets:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/orderingTest/customMagnets.test.js --project=chromium",
+  "customMagnets:dev:sg": "cross-env ENV=dev HEADLESS=true playwright test singaprinting/test/orderingTest/customMagnets.test.js --project=chromium",
+  "customMagnets:dev:sg:headed": "cross-env ENV=dev HEADLESS=false playwright test singaprinting/test/orderingTest/customMagnets.test.js --project=chromium",
+  "customMagnets:live:sg": "cross-env ENV=live HEADLESS=true playwright test singaprinting/test/orderingTest/customMagnets.test.js --project=chromium",
+  "customMagnets:live:sg:headed": "cross-env ENV=live HEADLESS=false playwright test singaprinting/test/orderingTest/customMagnets.test.js --project=chromium",
 
   "login:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/login.test.js --project=chromium",
   "login:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/login.test.js --project=chromium",

@@ -1,120 +1,127 @@
 import { test, expect } from '@playwright/test';
 import fs from 'fs';
 
-const expected = JSON.parse(fs.readFileSync('singaprinting/test/data/buttonBadgesContent.json', 'utf-8'));
+const expected = JSON.parse(fs.readFileSync('singaprinting/test/tesData/buttonBadgesContent.json', 'utf-8'));
 
 test.describe('🧾 Product Page: Button Badge', () => {
-  test('Verify sections, text, images, and structure', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     console.log(`🧭 Navigating to: ${expected.url}`);
     await page.goto(expected.url, { waitUntil: 'domcontentloaded' });
+  });
 
-    // 📸 Screenshot folder
-    const screenshotPath = 'screenshots/buttonBadge';
-    if (!fs.existsSync(screenshotPath)) fs.mkdirSync(screenshotPath, { recursive: true });
+  // =============== 1️⃣ QUOTE BANNER SECTION ===============
+  test.describe('🟦 Quote Banner Section', () => {
+    test('Verify images and thumbnails', async ({ page }) => {
+      const banner = page.locator('section.quote_banner');
+      await expect(banner).toBeVisible();
 
-    // =============== 1️⃣ QUOTE BANNER SECTION ===============
-    const banner = page.locator('section.quote_banner');
-    await expect(banner).toBeVisible();
+      const screenshotPath = 'screenshots/buttonBadge';
+      if (!fs.existsSync(screenshotPath)) fs.mkdirSync(screenshotPath, { recursive: true });
 
-    // 🖱️ Scroll + Screenshot
-    await banner.scrollIntoViewIfNeeded();
-    await page.screenshot({ path: `${screenshotPath}/01-quote-banner.png`, fullPage: false });
+      await banner.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: `${screenshotPath}/01-quote-banner.png`, fullPage: false });
 
-    // ✅ Images
-    const imageSrcs = await banner.locator('img').evaluateAll(imgs => imgs.map(i => i.src));
-    for (const img of expected.quote_banner.images) {
-      const found = imageSrcs.some(src => src.includes(img));
-      expect(found, `Missing banner image: ${img}`).toBeTruthy();
-    }
+      // ✅ Banner images
+      const imageSrcs = await banner.locator('img').evaluateAll(imgs => imgs.map(i => i.src));
+      for (const img of expected.quote_banner.images) {
+        const found = imageSrcs.some(src => src.includes(img));
+        expect(found, `Missing banner image: ${img}`).toBeTruthy();
+      }
 
-    // ✅ Thumbnails
-    const thumbSrcs = await banner.locator('.quote_carousel_thumbnails img').evaluateAll(imgs => imgs.map(i => i.src));
-    for (const thumb of expected.quote_banner.thumbnails) {
-      const found = thumbSrcs.some(src => src.includes(thumb));
-      expect(found, `Missing thumbnail: ${thumb}`).toBeTruthy();
-    }
+      // ✅ Thumbnails
+      const thumbSrcs = await banner.locator('.quote_carousel_thumbnails img').evaluateAll(imgs => imgs.map(i => i.src));
+      for (const thumb of expected.quote_banner.thumbnails) {
+        const found = thumbSrcs.some(src => src.includes(thumb));
+        expect(found, `Missing thumbnail: ${thumb}`).toBeTruthy();
+      }
 
-    console.log('✅ Quote banner verified.');
+      console.log('✅ Quote banner verified.');
+    });
+  });
 
-    // =============== 2️⃣ CONTENT SECTION ===============
-    const content = page.locator('.product-content-container');
-    await expect(content).toBeVisible();
+  // =============== 2️⃣ CONTENT SECTION ===============
+  test.describe('🟩 Content Section', () => {
+    test('Verify title, descriptions, and perfect-for list', async ({ page }) => {
+      const content = page.locator('.product-content-container');
+      await expect(content).toBeVisible();
 
-    // 🖱️ Scroll + Screenshot
-    await content.scrollIntoViewIfNeeded();
-    await page.screenshot({ path: `${screenshotPath}/02-content-section.png`, fullPage: false });
+      const screenshotPath = 'screenshots/buttonBadge';
+      await content.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: `${screenshotPath}/02-content-section.png`, fullPage: false });
 
-    // ✅ Titles and subtitles
-    await expect(content.locator('h2.content-title')).toHaveText(expected.content_container.title);
-    await expect(content.locator('h6.content-subtitle')).toHaveText(expected.content_container.subtitle);
+      // ✅ Titles
+      await expect(content.locator('h2.content-title')).toHaveText(expected.content_container.title);
+      await expect(content.locator('h6.content-subtitle')).toHaveText(expected.content_container.subtitle);
 
-    // ✅ Descriptions
-    const descText = (await content.locator('p.content-description').allTextContents()).join(' ');
-    for (const snippet of expected.content_container.descriptions) {
-      expect(descText).toContain(snippet);
-    }
+      // ✅ Descriptions
+      const descText = (await content.locator('p.content-description').allTextContents()).join(' ');
+      for (const snippet of expected.content_container.descriptions) {
+        expect(descText).toContain(snippet);
+      }
 
-    // ✅ "Perfect For" list
-    const perfectForTexts = await content.locator('li').allTextContents();
-    for (const item of expected.content_container.perfect_for) {
-      const found = perfectForTexts.some(t => t.includes(item));
-      expect(found, `Missing perfect for item: ${item}`).toBeTruthy();
-    }
+      // ✅ Perfect For list
+      const perfectForTexts = await content.locator('li').allTextContents();
+      for (const item of expected.content_container.perfect_for) {
+        const found = perfectForTexts.some(t => t.includes(item));
+        expect(found, `Missing perfect for item: ${item}`).toBeTruthy();
+      }
 
-    console.log('✅ Content section verified.');
+      console.log('✅ Content section verified.');
+    });
+  });
 
-    // =============== 3️⃣ PRODUCT INFO SECTION ===============
-    const bottom = page.locator('.product_info_btm_v2');
-    await expect(bottom).toBeVisible();
+  // =============== 3️⃣ PRODUCT INFO SECTION ===============
+  test.describe('🟨 Product Info Section', () => {
+    test('Verify finishing, precautions, shapes, and downloads', async ({ page }) => {
+      const bottom = page.locator('.product_info_btm_v2');
+      await expect(bottom).toBeVisible();
 
-    // 🖱️ Scroll + Screenshot
-    await bottom.scrollIntoViewIfNeeded();
-    await page.screenshot({ path: `${screenshotPath}/03-product-info.png`, fullPage: false });
+      const screenshotPath = 'screenshots/buttonBadge';
+      await bottom.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: `${screenshotPath}/03-product-info.png`, fullPage: false });
 
-    // ✅ Finishing Section (Title + Description)
-    const finishingSection = bottom.locator('.product-section-finishing');
-    await expect(finishingSection).toBeVisible();
+      // ✅ Finishing Section
+      const finishingSection = bottom.locator('.product-section-finishing');
+      await expect(finishingSection).toBeVisible();
 
-    // 🖱️ Scroll + Screenshot (for finishing area only)
-    await finishingSection.scrollIntoViewIfNeeded();
-    await page.screenshot({ path: `${screenshotPath}/03a-finishing-section.png`, fullPage: false });
+      await finishingSection.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: `${screenshotPath}/03a-finishing-section.png`, fullPage: false });
 
-    // ✅ Finishing Title
-    const finishingTitle = await finishingSection.locator('.section-title').textContent();
-    expect(finishingTitle?.trim()).toContain('Finishing');
+      const finishingTitle = await finishingSection.locator('.section-title').textContent();
+      expect(finishingTitle?.trim()).toContain('Finishing');
 
-    // ✅ Finishing Description
-    const finishingDesc = await finishingSection.locator('.section-description').textContent();
-    expect(finishingDesc?.trim()).toContain(expected.product_info.finishing.description);
+      const finishingDesc = await finishingSection.locator('.section-description').textContent();
+      expect(finishingDesc?.trim()).toContain(expected.product_info.finishing.description);
 
-    // ✅ Individual Finishing Titles (e.g., Glossy, Matte, etc.)
-    const finishingTitles = await bottom.locator('.finishing-title').allTextContents();
-    for (const finish of expected.product_info.finishing.options) {
-      const found = finishingTitles.some(t => t.includes(finish.title));
-      expect(found, `Missing finishing title: ${finish.title}`).toBeTruthy();
-    }
+      // ✅ Finishing Options
+      const finishingTitles = await bottom.locator('.finishing-title').allTextContents();
+      for (const finish of expected.product_info.finishing.options) {
+        const found = finishingTitles.some(t => t.includes(finish.title));
+        expect(found, `Missing finishing title: ${finish.title}`).toBeTruthy();
+      }
 
-    // ✅ Precautions
-    const precautionTitles = await bottom.locator('.instruction-title').allTextContents();
-    for (const notice of expected.product_info.precautions.notices) {
-      const found = precautionTitles.some(t => t.includes(notice.title));
-      expect(found, `Missing precaution: ${notice.title}`).toBeTruthy();
-    }
+      // ✅ Precautions
+      const precautionTitles = await bottom.locator('.instruction-title').allTextContents();
+      for (const notice of expected.product_info.precautions.notices) {
+        const found = precautionTitles.some(t => t.includes(notice.title));
+        expect(found, `Missing precaution: ${notice.title}`).toBeTruthy();
+      }
 
-    // ✅ Shapes & Sizes
-    const shapeImages = await bottom.locator('.size-item img').evaluateAll(imgs => imgs.map(i => i.src));
-    for (const img of expected.product_info.shapes_sizes.images) {
-      const found = shapeImages.some(src => src.includes(img));
-      expect(found, `Missing shape/size image: ${img}`).toBeTruthy();
-    }
+      // ✅ Shapes & Sizes
+      const shapeImages = await bottom.locator('.size-item img').evaluateAll(imgs => imgs.map(i => i.src));
+      for (const img of expected.product_info.shapes_sizes.images) {
+        const found = shapeImages.some(src => src.includes(img));
+        expect(found, `Missing shape/size image: ${img}`).toBeTruthy();
+      }
 
-    // ✅ Download Templates
-    const downloadImgs = await bottom.locator('.downloads-list img').evaluateAll(imgs => imgs.map(i => i.src));
-    for (const dl of expected.product_info.downloads) {
-      const found = downloadImgs.some(src => src.includes(dl.icon));
-      expect(found, `Missing download icon: ${dl.type}`).toBeTruthy();
-    }
+      // ✅ Download Templates
+      const downloadImgs = await bottom.locator('.downloads-list img').evaluateAll(imgs => imgs.map(i => i.src));
+      for (const dl of expected.product_info.downloads) {
+        const found = downloadImgs.some(src => src.includes(dl.icon));
+        expect(found, `Missing download icon: ${dl.type}`).toBeTruthy();
+      }
 
-    console.log('✅ Product info section verified.');
+      console.log('✅ Product info section verified.');
+    });
   });
 });
