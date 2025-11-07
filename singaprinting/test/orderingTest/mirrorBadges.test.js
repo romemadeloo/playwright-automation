@@ -154,6 +154,41 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
   } catch (err) {
     console.error(`❌ Test stopped early: ${err.message}`);
 } finally {
+  try {
+    console.log('🧮 Comparing prices with baseline before saving...');
+    const fs = await import('fs');
+    const baselinePath = 'singaprinting/test/pricingData/baselinePrice.json';
+    const baselineData = JSON.parse(fs.readFileSync(baselinePath, 'utf-8'));
+
+    const productName = 'Mirror Badges';
+    const productBaseline = baselineData[productName]; // ✅ remove shapeName
+
+    for (const result of results) {
+      const [width, height] = result.Size.replace('mm', '').split('x').map(Number);
+      const qtyKey = result.Quantity.toString();
+      const actual = parseFloat(result.Price.replace(/[^0-9.]/g, ''));
+
+      const baselineEntry = productBaseline.find(
+        e => e.width === width && e.height === height
+      );
+
+      if (baselineEntry && baselineEntry[qtyKey] !== undefined) {
+        const expected = baselineEntry[qtyKey];
+        const diff = Math.abs(expected - actual);
+        result.Status = diff <= 0.5
+          ? '✅ Match'
+          : `❌ Mismatch (Expected: ${expected}, Got: ${actual})`;
+      } else {
+        result.Status = '⚠️ No baseline data';
+      }
+    }
+
+
+    console.log(`🧾 Price comparison complete for ${productName}.`);
+  } catch (error) {
+    console.warn(`⚠️ Could not compare prices: ${error.message}`);
+  }
+
   saveResultSheet(results, env, 'sg', 'MirrorBadges');
 }
 });
