@@ -154,9 +154,9 @@ function getExpectedAttributes(slug) {
         'button-badge': {
             Shapes: ['Circle', 'Square', 'Heart'],
             Sizes: {
-                Circle: ['25', '32', '44', '58'],
-                Square: ['37', '50'],
-                Heart: ['45'],
+                Circle: ['32x32', '44x44', '58x58', '75x75'],
+                Square: ['37x37'],
+                Heart: ['52x57'],
             },
             Finishing: {
                 Circle: ['Gloss'],
@@ -176,7 +176,7 @@ function getExpectedAttributes(slug) {
         },
         'custom-magnet': {
             Shapes: {
-                Circle: ['30', '35', '40', '45', '50', '55'],
+                Circle: ['30x30', '35x35', '40x40', '45x45', '50x50', '55x55'],
                 Rectangle: ['53x33', '55x38', '60x41', '65x45', '80x55', '90x65'],
                 Custom: [],
             },
