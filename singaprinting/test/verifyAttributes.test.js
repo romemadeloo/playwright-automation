@@ -126,6 +126,7 @@ function expectedAttributes(slug) {
         Heart: ['Gloss', 'Matte'],
       },
       Quantity: getExpectedQuantities('badges'),
+      Packaging: ['No', 'Yes'],
     },
     'mirror-badge': {
       Shapes: ['Circle'],
@@ -136,6 +137,7 @@ function expectedAttributes(slug) {
         Circle: ['Gloss', 'Matte'],
       },
       Quantity: getExpectedQuantities('badges'),
+      Packaging: ['No', 'Yes'],
     },
     'magnetic-badge': {
       Shapes: ['Circle'],
@@ -146,6 +148,7 @@ function expectedAttributes(slug) {
         Circle: ['Gloss', 'Matte'],
       },
       Quantity: getExpectedQuantities('badges'),
+      Packaging: ['No', 'Yes'],
     },
     'custom-magnet': {
       Shapes: ['Circle', 'Rectangle', 'Custom'],
@@ -160,6 +163,7 @@ function expectedAttributes(slug) {
         Custom: [],
       },
       Quantity: getExpectedQuantities('magnets'),
+      Packaging: ['No', 'Yes'],
     },
   };
 
@@ -222,6 +226,13 @@ async function verifyAttributes(page, slug) {
       );
     }
     console.log(`✅ Verified Quantities for ${shape}`);
+
+    // Individual Packaging
+    const packagingExpected = expected.Packaging;
+    if (packagingExpected && slug !== 'custom-magnet') {
+      await looper(page, 'Individual Packaging', packagingExpected);
+    }
+    console.log(`✅ Verified Packaging for ${shape}`);
   }
 }
 
