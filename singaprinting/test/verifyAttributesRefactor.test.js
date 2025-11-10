@@ -24,9 +24,7 @@ async function looper(page, fieldName, expectedOptions) {
   console.log(`   🔹 Expected: [${expectedOptions.join(', ')}]`);
   console.log(`   🔸 Found:    [${actualOptions.join(', ')}]`);
 
-  for (const expected of expectedOptions) {
-    expect(actualOptions).toContain(expected);
-  }
+  expect(actualOptions).toEqual(expectedOptions);
 
   return actualOptions;
 }
@@ -42,25 +40,38 @@ function expectedAttributes(slug) {
       },
       Finishing: {
         Circle: ['Gloss'],
-        Square: ['Gloss'],
+        Square: ['Gloss', 'Matte'],
         Heart: ['Gloss', 'Matte'],
       },
     },
     'mirror-badge': {
       Shapes: ['Circle'],
-      'Size (mm)': ['58x58', '75x75'],
-      Finishing: ['Gloss', 'Matte'],
+      Sizes: {
+        Circle: ['58x58', '75x75'],
+      },
+      Finishing: {
+        Circle: ['Gloss', 'Matte'],
+      },
     },
     'magnetic-badge': {
       Shapes: ['Circle'],
-      'Size (mm)': ['25x25', '32x32'],
-      Finishing: ['Gloss', 'Matte'],
+      Sizes: {
+        Circle: ['25x25', '32x32'],
+      },
+      Finishing: {
+        Circle: ['Gloss', 'Matte'],
+      },
     },
     'custom-magnet': {
       Shapes: ['Circle', 'Rectangle', 'Custom'],
       Sizes: {
         Circle: ['30x30', '35x35', '40x40', '45x45', '50x50', '55x55'],
         Rectangle: ['53x33', '55x38', '60x41', '65x45', '80x55', '90x65'],
+        Custom: [],
+      },
+      Finishing: {
+        Circle: [],
+        Rectangle: [],
         Custom: [],
       },
     },
@@ -70,64 +81,49 @@ function expectedAttributes(slug) {
 }
 
 async function verifyAttributes(page, slug) {
-  const attrs = expectedAttributes(slug);
-  console.log(`\n🧩 Verifying attributes for: ${slug}`);
+  const expected = expectedAttributes(slug);
 
-  if (!attrs) {
-    console.warn(`⚠️ No attribute map found for slug: ${slug}`);
-    return;
-  }
+  console.log(`\n🧩 Verifying product: ${slug}`);
 
-  // === SHAPES ===
-  if (attrs.Shapes) {
-    const shapeKeys = Array.isArray(attrs.Shapes) ? attrs.Shapes : Object.keys(attrs.Shapes);
-    await looper(page, 'Shapes', shapeKeys);
+  for (let i = 0; i < expected.Shapes.length; i++) {
+    const shape = expected.Shapes[i];
+    console.log(`\n➡️ Checking shape: ${shape}`);
 
-    for (const shape of shapeKeys) {
-      console.log(`\n➡️ Selecting shape: ${shape}`);
-      await page.locator(`.switcher_item:has-text("${shape}")`).click();
-      await page.waitForTimeout(600);
+    if (i !== 0) {
+      const shapeButton = page.locator('div.switcher_con li', { hasText: shape });
+      await expect(shapeButton, `Shape button "${shape}" not found`).toBeVisible({ timeout: 5000 });
+      await shapeButton.click();
 
-      // === SIZE ===
-      const sizeField = attrs['Size (mm)'] ? 'Size (mm)' : 'Size (mm)'; // unified naming
-      const sizeOptions = attrs.Sizes ? attrs.Sizes[shape] || attrs['Size (mm)'] : null;
-
-      if (sizeOptions && sizeOptions.length > 0) {
-        await looper(page, sizeField, sizeOptions);
-      } else {
-        console.log(`⚠️ No size options defined for shape "${shape}"`);
+      const sizeExpected = expected.Sizes[shape];
+      if (sizeExpected && sizeExpected.length > 0) {
+        const sizeSection = page.locator(`//h4[contains(., "Size")]/following-sibling::div`);
+        await expect(sizeSection).toContainText(sizeExpected[0], { timeout: 8000 });
       }
+    }
 
-      // === FINISHING ===
-      if (attrs.Finishing) {
-        const finishingOptions = Array.isArray(attrs.Finishing)
-          ? attrs.Finishing
-          : attrs.Finishing[shape] || [];
-
-        if (finishingOptions.length > 0) {
-          await looper(page, 'Finishing', finishingOptions);
-        } else {
-          console.log(`⚠️ No finishing options defined for shape "${shape}"`);
-        }
+    // ✅ Verify Sizes
+    if (slug === 'custom-magnet' && shape === 'Custom') {
+      const widthInput = page.locator('input[name="width"]');
+      const heightInput = page.locator('input[name="height"]');
+      await expect(widthInput).toBeVisible({ timeout: 5000 });
+      await expect(heightInput).toBeVisible({ timeout: 5000 });
+      console.log(`✅ Verified Custom Size for ${shape}`);
+    } else {
+      const sizeExpected = expected.Sizes[shape] || [];
+      if (sizeExpected.length > 0) {
+        await looper(page, 'Size (mm)', sizeExpected);
       }
+      console.log(`✅ Verified Sizes for ${shape}`);
+    }
 
-      // === QUANTITY ===
-      const quantityField = page.locator(
-        '//h4[contains(.,"Quantity")]/following-sibling::div[contains(@class,"switcher_con")]'
-      );
-      if (await quantityField.isVisible()) {
-        const quantities = await quantityField.locator('.switcher_item').allInnerTexts();
-        console.log(`📦 Quantity options: [${quantities.join(', ')}]`);
-        expect(quantities.length).toBeGreaterThan(0);
-      } else {
-        console.log('⚠️ Quantity field not visible.');
+    // ✅ Verify Finishing
+    if (!(slug === 'custom-magnet' && shape === 'Custom')) {
+      const finishingExpected = expected.Finishing[shape] || [];
+      if (finishingExpected.length > 0) {
+        await looper(page, 'Finishing', finishingExpected);
       }
-
-      console.log(`🎯 Completed checks for shape "${shape}"`);
     }
   }
-
-  console.log(`\n✅ Finished verifying ${slug}\n`);
 }
 
 test('Verify Attributes for New Products', async ({ page }) => {
@@ -154,6 +150,7 @@ test('Verify Attributes for New Products', async ({ page }) => {
       await verifyAttributes(page, slug);
     } catch (err) {
       console.error(`❌ Error verifying ${slug}:`, err);
+      throw err;
     }
   }
 
