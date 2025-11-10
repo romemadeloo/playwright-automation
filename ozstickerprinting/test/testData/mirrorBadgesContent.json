@@ -24,7 +24,7 @@
       "Our Mirror Badges are designed with a high-quality reflective mirror on one side and your custom printed design on the other. Crafted from durable metal and finished with either a Glossy or Matte coating, each badge is lightweight, portable, and fits perfectly in handbags, pockets, or cosmetic pouches.",
       "Unlike ordinary mirrors, these badges let you express your creativity — add your logo, artwork, or personal message to make it truly yours. Whether for retail, branding, or personal collections, Mirror Badges make everyday touch-ups stylish and memorable."
     ],
-    "guide_video_thumbnail": "https://static.singaprinting.com/v2/images/badges_and_magnets/thumbnail/mirror-badge.png",
+    "guide_video_thumbnail": "https://static.singaprinting.com/v2/images/badges_and_magnets/thumbnail/mirror-badge.webp",
     "perfect_for": [
       "Cosmetic brands - promotional giveaways or product bundles",
       "Event souvenirs - weddings, parties, and festivals",
@@ -51,7 +51,7 @@
       },
       {
         "question": "Can I print my own artwork or logo?",
-        "answer": "The entire process, including production and delivery, typically takes 9–10 business days from the time your order is confirmed.Absolutely! Upload your design in 300 DPI resolution (PNG, JPG, PDF, or AI formats). We’ll ensure the best possible print quality."
+        "answer": "The entire process, including production and delivery, typically takes 9–10 business days from the time your order is confirmed.Absolutely! Upload your design in 300 DPI resolution (webp, JPG, PDF, or AI formats). We’ll ensure the best possible print quality."
       },
       {
         "question": "How do I take care of my Mirror Badge?",
@@ -60,19 +60,19 @@
     ]
   },
   "product_info": {
-    "hero_image": "https://static.singaprinting.com/v2/images/badges_and_magnets/hero/mirror-badge.png",
+    "hero_image": "https://static.singaprinting.com/v2/images/badges_and_magnets/hero/mirror-badge.webp",
     "finishing":{
     "description": "Our custom button badges come with premium finishing options designed to bring your design to life and match your style preferences. Each finish is crafted to ensure durability and long-lasting appeal, suitable for both indoor and outdoor use.",
     "options": [
         {
           "title": "Glossy",
           "description": "This finish uses an opaque white base material with a glossy coating that enhances colour vibrancy and sharpness. The shiny surface catches the light, making your badge pop with brightness. However, because the material itself is glossy, it slightly diffuses the reflection on the printed area, giving a balanced sheen without excessive glare.",
-          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/glossy-finish-v2.png"
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/glossy-finish-v2.webp"
         },
         {
           "title": "Matte",
           "description": "The matte finish features a pre-laminated material that reduces glare and gives your badge a soft, elegant appearance. While it offers less shine than glossy, it still allows some reflection from the ink’s sheen, creating a refined, subtle look that’s perfect for modern and minimalist designs.",
-          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/matte-finish-v2.png"
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/finishing/matte-finish-v2.webp"
         }
       ]
     },
@@ -83,7 +83,7 @@
         {
           "title": "Possible Print Misalignment",
           "description": "Due to the manufacturing process, the printed design may shift slightly (1–2 mm) in any direction (up, down, left, or right). This is within the normal tolerance range.",
-          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/phenomenon-slipping-print-v2.png"
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/phenomenon-slipping-print-v2.webp"
         }
       ]
     },
@@ -91,8 +91,8 @@
       "title": "Shapes & Sizes",
       "description": "Choose the perfect badge to match your vision. Whether you prefer classic circles, striking squares, or unique custom die-cut shapes, we offer flexible sizing options to bring your ideas to life with precision and style.",
       "images": [
-        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-v2-58x58.png",
-        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-v2-75x75.png"
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-v2-58x58.webp",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-v2-75x75.webp"
      ]
     },
     "downloads": [

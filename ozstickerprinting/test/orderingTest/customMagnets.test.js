@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../../../utils/login.js';
-import { sgConfig } from '../../config/sgConfig.js';
+import { ospConfig } from '../../config/ospConfig.js';
 import { saveResultSheet } from '../../../utils/saveResult.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
+import fs from 'fs';
 
 // Extend timeout (default 60s → 50min)
 test.setTimeout(3000000);
@@ -20,9 +21,9 @@ async function scrollAndClick(page, xpath, description) {
   }
 }
 
-test('🛒 Add to Cart Flow - Custom Magnets (SingaPrinting) - All Shapes', async ({ page }) => {
+test('🛒 Add to Cart Flow - Custom Magnets (ozstickerprinting) - All Shapes', async ({ page }) => {
   const env = process.env.ENV || 'dev';
-  const targetEnv = sgConfig.environment[env];
+  const targetEnv = ospConfig.environment[env];
   const baseUrl = targetEnv.baseUrl;
 
   console.log(`🌐 Environment: ${env}`);
@@ -137,11 +138,11 @@ test('🛒 Add to Cart Flow - Custom Magnets (SingaPrinting) - All Shapes', asyn
           );
           if (await seeMoreButton.isVisible()) {
             await seeMoreButton.first().click();
-            await page.waitForTimeout(100);
+            await page.waitForTimeout(1000);
           }
 
           await scrollAndClick(page, qty.xpath, `Quantity: ${qty.qty}`);
-          await page.waitForTimeout(100);
+          await page.waitForTimeout(1000);
 
           // Capture combo info and price
           const comboInfo = (await page.locator('xpath=//*[@id="product_details"]/div[1]/aside/div[2]').textContent())?.trim() || '';
@@ -276,7 +277,49 @@ test('🛒 Add to Cart Flow - Custom Magnets (SingaPrinting) - All Shapes', asyn
     }
   }} catch (err) {
     console.error(`❌ Test interrupted due to error: ${err.message}`);
-  } finally {
-  saveResultSheet(results, env, 'sg', 'CustomMagnets');
+   } finally {
+  try {
+    console.log('🧮 Comparing prices with baseline...');
+    const baselinePath = 'ozstickerprinting/test/pricingData/baselinePrice.json';
+    const baselineData = JSON.parse(fs.readFileSync(baselinePath, 'utf-8'));
+
+    // Fixed product name
+    const productName = 'Custom Magnets';
+    const productBaseline = baselineData[productName];
+    if (!productBaseline) throw new Error(`No baseline for: ${productName}`);
+
+    for (const result of results) {
+      const shape = result.Shape.trim();
+      const shapeGroup = productBaseline[shape];
+
+      if (!shapeGroup) {
+        result.Status = `⚠️ No shape data for ${shape}`;
+        continue;
+      }
+
+      const [width, height] = result.Size.replace('mm', '').split('x').map(n => parseFloat(n.trim()));
+      const qtyKey = result.Quantity.toString();
+      const actual = parseFloat(result.Price.replace(/[^0-9.]/g, ''));
+
+      // Find matching size in that shape group
+      const matched = shapeGroup.find(s => s.width === width && s.height === height);
+
+      if (matched && matched[qtyKey] !== undefined) {
+        const expected = matched[qtyKey];
+        const diff = Math.abs(expected - actual);
+        result.Status = diff <= 0.5 ? '✅ Match' : `❌ Mismatch (Expected: ${expected}, Got: ${actual})`;
+      } else {
+        result.Status = '⚠️ No baseline data for this size/qty';
+      }
+    }
+
+    console.log('🧾 Price comparison complete.');
+  } catch (e) {
+    console.warn(`⚠️ Could not compare prices: ${e.message}`);
+  }
+
+  await saveResultSheet(results, env, 'osp', 'CustomMagnets');
 }
+
 });
+

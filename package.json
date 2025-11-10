@@ -41,32 +41,38 @@
 
 
 
-
-
   "login:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/login.test.js --project=chromium",
   "login:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/login.test.js --project=chromium",
   "login:live:osp": "cross-env ENV=live HEADLESS=true playwright test ozstickerprinting/test/login.test.js --project=chromium",
   "login:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/login.test.js --project=chromium",
-
-  "buttonBadges:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/orderingTest.test.js --project=chromium",
-  "buttonBadges:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/orderingTest.test.js --project=chromium",
-  "buttonBadges:live:osp": "cross-env ENV=live HEADLESS=true playwright test ozstickerprinting/test/orderingTest.test.js --project=chromium",
-  "buttonBadges:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/orderingTest.test.js --project=chromium",
+  
+  "buttonBadges:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/orderingTest/buttonBadges.test.js --project=chromium",
+  "buttonBadges:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/orderingTest/buttonBadges.test.js --project=chromium",
+  "buttonBadges:live:osp": "cross-env ENV=live HEADLESS=true playwright test ozstickerprinting/test/orderingTest/buttonBadges.test.js --project=chromium",
+  "buttonBadges:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/orderingTest/buttonBadges.test.js --project=chromium",
+  "buttonBadgesContent:live:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/contentTest/buttonBadgesContent.test.js --project=chromium",
+  "buttonBadgesContent:live:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/contentTest/buttonBadgesContent.test.js --project=chromium",
   
   "mirrorBadges:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
   "mirrorBadges:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
   "mirrorBadges:live:osp": "cross-env ENV=live HEADLESS=true playwright test ozstickerprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
   "mirrorBadges:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/orderingTest/mirrorBadges.test.js --project=chromium",
+  "mirrorBadgesContent:live:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/contentTest/mirrorBadgesContent.test.js --project=chromium",
+  "mirrorBadgesContent:live:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/contentTest/mirrorBadgesContent.test.js --project=chromium",
 
   "magneticBadges:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
   "magneticBadges:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
   "magneticBadges:live:osp": "cross-env ENV=live HEADLESS=true playwright test ozstickerprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
-  "magneticBadges:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/ordering/TestmagneticBadges.test.js --project=chromium",
+  "magneticBadges:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/orderingTest/magneticBadges.test.js --project=chromium",
+  "magneticBadgesContent:live:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/test/contentTest/magneticBadgesContent.test.js --project=chromium",
+  "magneticBadgesContent:live:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/test/contentTest/magneticBadgesContent.test.js --project=chromium",
 
   "customMagnets:dev:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/orderingTest/customMagnets.test.js --project=chromium",
   "customMagnets:dev:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/orderingTest/customMagnets.test.js --project=chromium",
   "customMagnets:live:osp": "cross-env ENV=live HEADLESS=true playwright test ozstickerprinting/test/orderingTest/customMagnets.test.js --project=chromium",
-  "customMagnets:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/orderingTest/customMagnets.test.js --project=chromium"
+  "customMagnets:live:osp:headed": "cross-env ENV=live HEADLESS=false playwright test ozstickerprinting/test/orderingTest/customMagnets.test.js --project=chromium",
+  "customMagnetsContent:live:osp": "cross-env ENV=dev HEADLESS=true playwright test ozstickerprinting/test/contentTest/customMagnetsContent.test.js --project=chromium",
+  "customMagnetsContent:live:osp:headed": "cross-env ENV=dev HEADLESS=false playwright test ozstickerprinting/test/contentTest/customMagnetsContent.test.js --project=chromium"
   
 },
   "keywords": [],

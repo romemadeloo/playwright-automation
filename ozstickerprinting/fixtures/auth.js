@@ -4,7 +4,7 @@ import { log } from '../utils/logger.js';
 const test = base.extend({
   authPage: async ({ page }, use) => {
     log('Navigating to login page...');
-    await page.goto('https://www.singaprinting.com/');
+    await page.goto('https://www.ozstickerprinting.com/');
 
     // Click login icon
     await page.click('//ul/li[2]//a[contains(@class,"icon_myaccount")]');

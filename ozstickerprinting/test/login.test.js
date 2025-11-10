@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { sgConfig } from '../config/sgConfig.js';
+import { ospConfig } from '../config/ospConfig.js';
 
 const env = process.env.ENV || 'live';
-const targetEnv = sgConfig.environment[env];
-const { credentials, xpaths } = sgConfig;
+const targetEnv = ospConfig.environment[env];
+const { credentials, xpaths } = ospConfig;
 const baseUrl = targetEnv.baseUrl;
 
-test(`Login Test - SingaPrinting (${env})`, async ({ page }) => {
+test(`Login Test - ozstickerprinting (${env})`, async ({ page }) => {
   console.log(`🧭 Running on environment: ${env}`);
   console.log(`🌐 Base URL: ${baseUrl}`);
 

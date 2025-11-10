@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { login } from '../../../utils/login.js';
-import { sgConfig } from '../../config/sgConfig.js';
+import { ospConfig } from '../../config/ospConfig.js';
 import { saveResultSheet } from '../../../utils/saveResult.js';
 import * as XLSX from 'xlsx'; // 📊 Excel export support
 
@@ -20,9 +20,9 @@ async function scrollAndClick(page, xpath, description) {
   }
 }
 
-test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async ({ page }) => {
+test('🪞 Add to Cart Flow - Mirror Badges (ozstickerprinting) - All Shapes', async ({ page }) => {
   const env = process.env.ENV || 'dev';
-  const targetEnv = sgConfig.environment[env];
+  const targetEnv = ospConfig.environment[env];
   const baseUrl = targetEnv.baseUrl;
 
   console.log(`🌐 Environment: ${env}`);
@@ -154,6 +154,41 @@ test('🪞 Add to Cart Flow - Mirror Badges (SingaPrinting) - All Shapes', async
   } catch (err) {
     console.error(`❌ Test stopped early: ${err.message}`);
 } finally {
-  saveResultSheet(results, env, 'sg', 'MirrorBadges');
+  try {
+    console.log('🧮 Comparing prices with baseline before saving...');
+    const fs = await import('fs');
+    const baselinePath = 'ozstickerprinting/test/pricingData/baselinePrice.json';
+    const baselineData = JSON.parse(fs.readFileSync(baselinePath, 'utf-8'));
+
+    const productName = 'Mirror Badges';
+    const productBaseline = baselineData[productName]; // ✅ remove shapeName
+
+    for (const result of results) {
+      const [width, height] = result.Size.replace('mm', '').split('x').map(Number);
+      const qtyKey = result.Quantity.toString();
+      const actual = parseFloat(result.Price.replace(/[^0-9.]/g, ''));
+
+      const baselineEntry = productBaseline.find(
+        e => e.width === width && e.height === height
+      );
+
+      if (baselineEntry && baselineEntry[qtyKey] !== undefined) {
+        const expected = baselineEntry[qtyKey];
+        const diff = Math.abs(expected - actual);
+        result.Status = diff <= 0.5
+          ? '✅ Match'
+          : `❌ Mismatch (Expected: ${expected}, Got: ${actual})`;
+      } else {
+        result.Status = '⚠️ No baseline data';
+      }
+    }
+
+
+    console.log(`🧾 Price comparison complete for ${productName}.`);
+  } catch (error) {
+    console.warn(`⚠️ Could not compare prices: ${error.message}`);
+  }
+
+  saveResultSheet(results, env, 'osp', 'MirrorBadges');
 }
 });

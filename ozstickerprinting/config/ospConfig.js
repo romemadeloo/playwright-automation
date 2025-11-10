@@ -1,6 +1,5 @@
-// singaprinting/config/sgConfig.js
 
-export const sgConfig = {
+export const ospConfig = {
   site: {
     name: 'OzStickerPrinting',
     baseUrl: 'https://www.ozstickerprinting.com/',
@@ -19,7 +18,7 @@ export const sgConfig = {
 
   credentials: {
     email: 'trainee81.glophics@gmail.com',
-    password: '123456',
+    password: '1234567',
   },
 
   xpaths: {

@@ -17,7 +17,7 @@
     "buttons": ["carousel_banner_prev", "carousel_banner_next"]
   },
   "content_container": {
-    "title": "Magnetic Badges",
+    "title": "Magnetic Badge",
     "subtitle": "Stylish and Secure – No Pins, No Damage",
     "descriptions": [
       "Introducing our Custom Magnetic Badge — the perfect blend of innovation, convenience, and style. Designed with a magnetic backplate, these badges attach securely without piercing clothing, making them the preferred choice for professionals and event organisers who want a clean, polished look.",
@@ -82,29 +82,28 @@
       "description": "We aim to deliver the best quality, but due to the nature of badge manufacturing, certain small variations may occur. Please review the following points carefully before placing your order.",
       "notices": [
         {
-          "title": "Caution: Needle Pin on the Back",
-          "description": "The back of each badge is equipped with a metal pin for fastening. Please handle with care when opening or attaching the badge to avoid injury.",
-          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/needles-back-badge.png"
-        },
-        {
           "title": "Possible Print Misalignment",
           "description": "Due to the manufacturing process, the printed design may shift slightly (1–2 mm) in any direction (up, down, left, or right). This is within the normal tolerance range.",
-          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/phenomenon-slipping-print-v2.png"
-        },
-        {
-          "title": "Note on Heart-Shaped Badges",
-          "description": "Heart-shaped badges are specially cut and assembled. The outer trim and edges may vary slightly from standard round badges. (Refer to product photo for details.)",
-          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/about-heart-shape-v2.png"
+          "image": "https://static.singaprinting.com/v2/images/badges_and_magnets/notice/phenomenon-slipping-print-v2.webp"
         }
       ]
+    },
+    "strength_thickness":{
+    "title": "Magnetic Strength, and Thickness",
+    "description":[
+      "Our magnetic badges come in two popular sizes—25mm and 32mm—each offering a unique balance of magnet strength and overall thickness.",
+      "The 25mm Magnetic Badge is compact and lightweight, ideal for subtle displays or when you prefer a smaller profile. It uses a thinner magnet backing but features a stronger magnet for a sturdier attachment.",
+      "The 32mm Magnetic Badge, on the other hand, features a slightly thinner magnet backing but with a thicker build—perfect for easy repositioning and a more noticeable presence. Both sizes maintain a smooth surface finish and reliable magnetic grip, ensuring secure and stylish wear without the need for pins."
+     ],
+     "image":"https://static.singaprinting.com/v2/images/badges_and_magnets/magnetic/magnetic-strength-thickness.webp"
     },
     "shapes_sizes": {
       "title": "Shapes & Sizes",
       "description": "Choose the perfect badge to match your vision. Whether you prefer classic circles, striking squares, or unique custom die-cut shapes, we offer flexible sizing options to bring your ideas to life with precision and style.",
       "images": [
-        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-25x25.png",
-        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/square-32x32.png"
-     ]
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-v2-25x25.webp",
+        "https://static.singaprinting.com/v2/images/badges_and_magnets/sizes/circle-v2-32x32.webp"
+      ]
     },
     "downloads": [
       {
