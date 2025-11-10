@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import fs from 'fs';
 
-const expected = JSON.parse(fs.readFileSync('singaprinting/test/tesData/buttonBadgesContent.json', 'utf-8'));
+const expected = JSON.parse(fs.readFileSync('singaprinting/test/testData/buttonBadgesContent.json', 'utf-8'));
 
 test.describe('🧾 Product Page: Button Badge', () => {
   test.beforeEach(async ({ page }) => {
