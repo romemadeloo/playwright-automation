@@ -4,187 +4,95 @@ import { sgConfig } from '../config/sgConfig.js';
 
 test.setTimeout(3000000);
 
-async function verifySwitcherField(page, fieldName, expectedOptions = [], category = '', expectedAttributes = {}) {
-    const fieldLocator = page.locator(`//h4[contains(@class,"section_title") and normalize-space(text())="${fieldName}"]/following-sibling::div[contains(@class,"switcher_con")]`);
-    await expect(fieldLocator).toBeVisible({ timeout: 8000 });
-    console.log(`✅ "${fieldName}" section found`);
+async function looper(page, fieldName, expectedOptions, isQuantity = false) {
+  const fieldLocator = page.locator(
+    `//h4[contains(@class,"section_title") and normalize-space(text())="${fieldName}"]/following-sibling::div[contains(@class,"switcher_con")]`
+  );
 
-    const options = fieldLocator.locator('.select_items > ul > li:not(.see_more)');
-    const optionCount = await options.count();
+  await expect(fieldLocator, `${fieldName} section not visible`).toBeVisible({ timeout: 8000 });
 
-    const actualOptions = [];
+  const options = fieldLocator.locator('.select_items > ul > li:not(.see_more)');
+  const optionCount = await options.count();
+
+  const actualBaseOptions = [];
+  for (let i = 0; i < optionCount; i++) {
+    const text = (await options.nth(i).textContent()).trim();
+    actualBaseOptions.push(text);
+  }
+
+  console.log(`\n📘 Field: ${fieldName}`);
+
+  if (!isQuantity) {
+    console.log(`   🔹 Expected: [${expectedOptions.join(', ')}]`);
+    console.log(`   🔸 Found:    [${actualBaseOptions.join(', ')}]`);
+    expect(actualBaseOptions).toEqual(expectedOptions);
+
     for (let i = 0; i < optionCount; i++) {
-        const text = (await options.nth(i).textContent()).trim();
-        actualOptions.push(text);
+      const option = options.nth(i);
+      await option.scrollIntoViewIfNeeded();
+      await option.click();
+      await expect(option).toHaveClass(/active/);
     }
+    return actualBaseOptions;
+  }
 
-    console.log(`📋 ${fieldName} Options: ${actualOptions.join(', ')}`);
+  /* -- Quantity special handling --- */
+  const quantityExpectedBase = expectedOptions.slice(0, optionCount);
+  const quantityExpectedModal = expectedOptions.slice(optionCount);
 
-    if (expectedOptions.length) {
-        expect(actualOptions).toEqual(expectedOptions);
-    }
+  expect(actualBaseOptions).toEqual(quantityExpectedBase);
 
-    // Handle SHAPES field specially
-    if (fieldName === 'Shapes') {
-        for (let i = 0; i < optionCount; i++) {
-            const shapeItem = options.nth(i);
-            const shapeName = actualOptions[i];
-            await shapeItem.scrollIntoViewIfNeeded();
-            await shapeItem.click();
-            await expect(shapeItem).toHaveClass(/active/);
-            console.log(`🎨 Selected Shape: ${shapeName}`);
+  // Click base quantities
+  for (let i = 0; i < optionCount; i++) {
+    const option = options.nth(i);
+    await option.scrollIntoViewIfNeeded();
+    await option.click();
+    await expect(option).toHaveClass(/active/);
+  }
 
-            await page.waitForTimeout(1000);
-
-            // Nested fields: size, finishing, quantity
-            const nestedFields = ['Size (mm)', 'Finishing', 'Quantity'];
-            const filteredFields = category === 'magnets'
-                ? nestedFields.filter(f => f !== 'Finishing')
-                : nestedFields;
-
-            for (const nestedField of filteredFields) {
-                const nestedLocator = page.locator(`//h4[contains(@class,"section_title") and normalize-space(text())="${nestedField}"]/following-sibling::div[contains(@class,"switcher_con")]`);
-                if (!(await nestedLocator.isVisible())) {
-                    console.log(`⚠️ Skipping "${nestedField}" — not visible for ${shapeName}`);
-                    continue;
-                }
-
-                const nestedOptions = nestedLocator.locator('.select_items > ul > li:not(.see_more)');
-                const nestedCount = await nestedOptions.count();
-                const nestedValues = [];
-
-                for (let j = 0; j < nestedCount; j++) {
-                    const text = (await nestedOptions.nth(j).textContent()).trim();
-                    nestedValues.push(text);
-                }
-
-                console.log(`   🔹 ${nestedField} Options for ${shapeName}: ${nestedValues.join(', ')}`);
-
-                // ✅ Validation logic per shape
-                if (nestedField === 'Size (mm)' && expectedAttributes?.Sizes?.[shapeName]) {
-                    expect(nestedValues).toEqual(expectedAttributes.Sizes[shapeName]);
-                } else if (nestedField === 'Finishing' && expectedAttributes?.Finishing?.[shapeName]) {
-                    expect(nestedValues).toEqual(expectedAttributes.Finishing[shapeName]);
-                }
-            }
-
-            console.log(`✅ Completed verification for shape: ${shapeName}\n`);
-        }
-    } else {
-        // Default behavior for non-shape fields
-        for (let i = 0; i < optionCount; i++) {
-            const item = options.nth(i);
-            await item.scrollIntoViewIfNeeded();
-            await item.click();
-            await expect(item).toHaveClass(/active/);
-            console.log(`🧪 Selected ${fieldName}: ${actualOptions[i]}`);
-            await page.waitForTimeout(500);
-        }
-    }
-}
-
-async function verifyQuantities(page, { expectedBase, expectedModal }) {
-    const quantitySection = page.locator('//h4[normalize-space(.)="Quantity"]/following-sibling::div[contains(@class,"switcher_con")]');
-    await expect(quantitySection).toBeVisible({ timeout: 8000 });
-
-    // BASE OPTIONS
-    const baseOptions = quantitySection.locator('.select_items > ul > li:not(.see_more)');
-    const baseCount = await baseOptions.count();
-
-    const actualBaseQuantities = [];
-    for (let i = 0; i < baseCount; i++) {
-        const text = (await baseOptions.nth(i).textContent()).trim().match(/^\d+/)?.[0] || '';
-        actualBaseQuantities.push(text);
-    }
-
-    console.log(`📊 Base Quantities: ${actualBaseQuantities.join(', ')}`);
-    expect(actualBaseQuantities).toEqual(expectedBase);
-
-    // CLICK EACH BASE OPTION
-    for (let i = 0; i < baseCount; i++) {
-        const qtyItem = baseOptions.nth(i);
-        await qtyItem.scrollIntoViewIfNeeded();
-        await qtyItem.click();
-        await expect(qtyItem).toHaveClass(/active/);
-        console.log(`🧪 Clicked base quantity: ${expectedBase[i]}`);
-    }
-
-    // HANDLE "SEE MORE"
-    const seeMoreButton = quantitySection.locator('.see_more');
+  // Check modal quantities
+  if (quantityExpectedModal.length > 0) {
+    const seeMoreButton = fieldLocator.locator('.see_more, button.show_more_quantities');
     if (await seeMoreButton.isVisible()) {
-        console.log('📦 Opening See More modal...');
-        await seeMoreButton.click();
+      await seeMoreButton.click();
 
-        const modal = page.locator('.custom_quantity_modal');
-        await expect(modal).toBeVisible({ timeout: 5000 });
+      const modal = page.locator('.custom_quantity_modal');
+      await expect(modal).toBeVisible({ timeout: 5000 });
 
-        const modalOptions = modal.locator('li');
-        const modalCount = await modalOptions.count();
+      const modalOptions = modal.locator('li');
+      const modalCount = await modalOptions.count();
+      const actualModalOptions = [];
 
-        const actualModalQuantities = [];
-        for (let j = 0; j < modalCount; j++) {
-            const text = (await modalOptions.nth(j).textContent()).trim().match(/^\d+/)?.[0] || '';
-            actualModalQuantities.push(text);
+      for (let j = 0; j < modalCount; j++) {
+        const text = (await modalOptions.nth(j).textContent()).trim();
+        const numberOnly = text.match(/^\d+/)?.[0];
+        actualModalOptions.push(numberOnly);
+      }
+
+      const allExpected = [...quantityExpectedBase, ...quantityExpectedModal];
+      const allFound = [...actualBaseOptions, ...actualModalOptions];
+      console.log(`   🔹 Expected: [${allExpected.join(', ')}]`);
+      console.log(`   🔸 Found:    [${allFound.join(', ')}]`);
+
+      expect(actualModalOptions).toEqual(quantityExpectedModal);
+
+      for (let j = 0; j < modalCount; j++) {
+        const modalQty = modalOptions.nth(j);
+        await modalQty.scrollIntoViewIfNeeded();
+        await modalQty.click();
+        if (j < modalCount - 1) {
+          await seeMoreButton.click();
+          await expect(modal).toBeVisible({ timeout: 4000 });
         }
+      }
 
-        console.log(`📊 Modal Quantities: ${actualModalQuantities.join(', ')}`);
-        expect(actualModalQuantities).toEqual(expectedModal);
-
-        // CLICK EACH MODAL OPTION
-        for (let j = 0; j < modalCount; j++) {
-            const modalQty = modalOptions.nth(j);
-            await modalQty.scrollIntoViewIfNeeded();
-            await modalQty.click();
-            console.log(`🧪 Clicked modal quantity: ${expectedModal[j]}`);
-
-            if (j < modalCount - 1) {
-                await seeMoreButton.click();
-                await expect(modal).toBeVisible({ timeout: 4000 });
-            }
-        }
-
-        await page.keyboard.press('Escape');
-    } else {
-        console.log('ℹ️ No modal quantities found.');
+      await page.keyboard.press('Escape');
     }
+  }
+
+  return [...actualBaseOptions, ...quantityExpectedModal];
 }
 
-function getExpectedAttributes(slug) {
-    const attributes = {
-        'button-badge': {
-            Shapes: ['Circle', 'Square', 'Heart'],
-            Sizes: {
-                Circle: ['32x32', '44x44', '58x58', '75x75'],
-                Square: ['37x37'],
-                Heart: ['52x57'],
-            },
-            Finishing: {
-                Circle: ['Gloss'],
-                Square: ['Gloss'],
-                Heart: ['Gloss', 'Matte'],
-            },
-        },
-        'mirror-badge': {
-            Shapes: ['Circle'],
-            'Size (mm)': ['58x58', '75x75'],
-            Finishing: ['Gloss', 'Matte'],
-        },
-        'magnetic-badge': {
-            Shapes: ['Circle'],
-            'Size (mm)': ['25x25', '32x32'],
-            Finishing: ['Gloss', 'Matte'],
-        },
-        'custom-magnet': {
-            Shapes: {
-                Circle: ['30x30', '35x35', '40x40', '45x45', '50x50', '55x55'],
-                Rectangle: ['53x33', '55x38', '60x41', '65x45', '80x55', '90x65'],
-                Custom: [],
-            },
-        },
-    };
-
-    return attributes[slug] || {};
-}
 
 function getExpectedQuantities(category) {
     switch (category) {
@@ -203,61 +111,147 @@ function getExpectedQuantities(category) {
     }
 }
 
-test('Verify Attributes of New Products - SingaPrinting', async ({ page }) => {
-    const env = process.env.ENV || 'dev';
-    const targetEnv = sgConfig.environment[env];
-    const baseUrl = targetEnv.baseUrl;
+function expectedAttributes(slug) {
+  const attributes = {
+    'button-badge': {
+      Shapes: ['Circle', 'Square', 'Heart'],
+      Sizes: {
+        Circle: ['32x32', '44x44', '58x58', '75x75'],
+        Square: ['37x37'],
+        Heart: ['52x57'],
+      },
+      Finishing: {
+        Circle: ['Gloss'],
+        Square: ['Gloss', 'Matte'],
+        Heart: ['Gloss', 'Matte'],
+      },
+      Quantity: getExpectedQuantities('badges'),
+    },
+    'mirror-badge': {
+      Shapes: ['Circle'],
+      Sizes: {
+        Circle: ['58x58', '75x75'],
+      },
+      Finishing: {
+        Circle: ['Gloss', 'Matte'],
+      },
+      Quantity: getExpectedQuantities('badges'),
+    },
+    'magnetic-badge': {
+      Shapes: ['Circle'],
+      Sizes: {
+        Circle: ['25x25', '32x32'],
+      },
+      Finishing: {
+        Circle: ['Gloss', 'Matte'],
+      },
+      Quantity: getExpectedQuantities('badges'),
+    },
+    'custom-magnet': {
+      Shapes: ['Circle', 'Rectangle', 'Custom'],
+      Sizes: {
+        Circle: ['30x30', '35x35', '40x40', '45x45', '50x50', '55x55'],
+        Rectangle: ['53x33', '55x38', '60x41', '65x45', '80x55', '90x65'],
+        Custom: [],
+      },
+      Finishing: {
+        Circle: [],
+        Rectangle: [],
+        Custom: [],
+      },
+      Quantity: getExpectedQuantities('magnets'),
+    },
+  };
 
-    console.log(`🌐 Environment: ${env}`);
-    console.log(`🔗 Base URL: ${baseUrl}`);
+  return attributes[slug];
+}
 
-    // LOGIN
-    const loggedIn = await login(page, env);
-    if (!loggedIn) throw new Error('❌ Login failed — cannot proceed.');
+async function verifyAttributes(page, slug) {
+  const expected = expectedAttributes(slug);
 
-    const products = [
-        { category: 'badges', slug: 'button-badge' },
-        { category: 'badges', slug: 'mirror-badge' },
-        { category: 'badges', slug: 'magnetic-badge' },
-        { category: 'magnets', slug: 'custom-magnet' },
-    ];
+  console.log(`\n🧩 Verifying product: ${slug}`);
 
-    for (const product of products) {
-        const productUrl = `${baseUrl}${product.category}/${product.slug}?featured=1`;
-        console.log(`\n🔄 Navigating to ${product.slug.toUpperCase()}: ${productUrl}`);
-        await page.goto(productUrl, { waitUntil: 'domcontentloaded' });
+  for (let i = 0; i < expected.Shapes.length; i++) {
+    const shape = expected.Shapes[i];
+    console.log(`\n➡️ Checking shape: ${shape}`);
 
-        const expectedAttributes = getExpectedAttributes(product.category, product.slug);
-        let fieldsToVerify = ['Shapes', 'Size (mm)', 'Finishing', 'Quantity'];
+    if (i !== 0) {
+      const shapeButton = page.locator('div.switcher_con li', { hasText: shape });
+      await expect(shapeButton, `Shape button "${shape}" not found`).toBeVisible({ timeout: 5000 });
+      await shapeButton.click();
 
-        if (product.category === 'magnets') {
-            fieldsToVerify = fieldsToVerify.filter(f => f !== 'Finishing');
-        }
-
-        for (const field of fieldsToVerify) {
-            // Skip quantity here (we handle it separately)
-            if (field === 'Quantity') continue;
-
-            const fieldLocator = page.locator(
-                `//h4[contains(@class,"section_title") and normalize-space(text())="${field}"]`
-            );
-            const isFieldVisible = await fieldLocator.isVisible();
-
-            if (!isFieldVisible) {
-                console.log(`⚠️ Skipping "${field}" — field not found on page for ${product.slug}`);
-                continue;
-            }
-
-            const expectedOptions = expectedAttributes[field] || [];
-            await verifySwitcherField(page, field, expectedOptions, product.category, expectedAttributes);
-        }
-
-        // ✅ QUANTITY VALIDATION
-        const { expectedBase, expectedModal } = getExpectedQuantities(product.category);
-        await verifyQuantities(page, { expectedBase, expectedModal });
-
-        console.log(`\n✅ Finished testing ${product.slug.toUpperCase()}.`);
+      const sizeExpected = expected.Sizes[shape];
+      if (sizeExpected && sizeExpected.length > 0) {
+        const sizeSection = page.locator(`//h4[contains(., "Size")]/following-sibling::div`);
+        await expect(sizeSection).toContainText(sizeExpected[0], { timeout: 8000 });
+      }
     }
 
-    console.log('\n🎉 All products tested successfully!');
+    // Sizes
+    if (slug === 'custom-magnet' && shape === 'Custom') {
+      const widthInput = page.locator('input[name="width"]');
+      const heightInput = page.locator('input[name="height"]');
+      await expect(widthInput).toBeVisible({ timeout: 5000 });
+      await expect(heightInput).toBeVisible({ timeout: 5000 });
+      console.log(`✅ Verified Custom Size for ${shape}`);
+    } else {
+      const sizeExpected = expected.Sizes[shape] || [];
+      if (sizeExpected.length > 0) {
+        await looper(page, 'Size (mm)', sizeExpected);
+      }
+      console.log(`✅ Verified Sizes for ${shape}`);
+    }
+
+    // Finishing
+    if (!(slug === 'custom-magnet' && shape === 'Custom')) {
+      const finishingExpected = expected.Finishing[shape] || [];
+      if (finishingExpected.length > 0) {
+        await looper(page, 'Finishing', finishingExpected);
+      }
+      console.log(`✅ Verified Finishing for ${shape}`);
+    }
+
+    // Quantity
+    const quantityExpected = expected.Quantity;
+    if (quantityExpected) {
+      await looper(
+        page,
+        'Quantity',
+        [...quantityExpected.expectedBase, ...quantityExpected.expectedModal],
+        true
+      );
+    }
+    console.log(`✅ Verified Quantities for ${shape}`);
+  }
+}
+
+test('Verify Attributes for New Products', async ({ page }) => {
+  const env = process.env.ENV || 'dev';
+  const targetEnv = sgConfig.environment[env];
+  const baseUrl = targetEnv.baseUrl;
+
+  console.log(`🌐 Environment: ${env}`);
+  console.log(`🔗 Base URL: ${baseUrl}`);
+
+  const products = [
+    { category: 'badges', slug: 'button-badge' },
+    { category: 'badges', slug: 'mirror-badge' },
+    { category: 'badges', slug: 'magnetic-badge' },
+    { category: 'magnets', slug: 'custom-magnet' },
+  ];
+
+  for (const { category, slug } of products) {
+    const productUrl = `${baseUrl}${category}/${slug}?featured=1`;
+    console.log(`\n🔄 Navigating to ${slug.toUpperCase()}: ${productUrl}`);
+
+    try {
+      await page.goto(productUrl, { waitUntil: 'domcontentloaded' });
+      await verifyAttributes(page, slug);
+    } catch (err) {
+      console.error(`❌ Error verifying ${slug}:`, err);
+      throw err;
+    }
+  }
+
+  console.log('\n🎉 All product attribute verifications completed!\n');
 });
