@@ -4,7 +4,7 @@ import { sgConfig } from '../config/sgConfig.js';
 
 test.setTimeout(3000000);
 
-async function looper(page, fieldName, expectedOptions) {
+async function looper(page, fieldName, expectedOptions, isQuantity = false) {
   const fieldLocator = page.locator(
     `//h4[contains(@class,"section_title") and normalize-space(text())="${fieldName}"]/following-sibling::div[contains(@class,"switcher_con")]`
   );
@@ -14,19 +14,101 @@ async function looper(page, fieldName, expectedOptions) {
   const options = fieldLocator.locator('.select_items > ul > li:not(.see_more)');
   const optionCount = await options.count();
 
-  const actualOptions = [];
+  const actualBaseOptions = [];
   for (let i = 0; i < optionCount; i++) {
     const text = (await options.nth(i).textContent()).trim();
-    actualOptions.push(text);
+    actualBaseOptions.push(text);
   }
 
   console.log(`\n📘 Field: ${fieldName}`);
-  console.log(`   🔹 Expected: [${expectedOptions.join(', ')}]`);
-  console.log(`   🔸 Found:    [${actualOptions.join(', ')}]`);
 
-  expect(actualOptions).toEqual(expectedOptions);
+  if (!isQuantity) {
+    console.log(`   🔹 Expected: [${expectedOptions.join(', ')}]`);
+    console.log(`   🔸 Found:    [${actualBaseOptions.join(', ')}]`);
+    expect(actualBaseOptions).toEqual(expectedOptions);
 
-  return actualOptions;
+    for (let i = 0; i < optionCount; i++) {
+      const option = options.nth(i);
+      await option.scrollIntoViewIfNeeded();
+      await option.click();
+      await expect(option).toHaveClass(/active/);
+    }
+    return actualBaseOptions;
+  }
+
+  /* -- Quantity special handling --- */
+  const quantityExpectedBase = expectedOptions.slice(0, optionCount);
+  const quantityExpectedModal = expectedOptions.slice(optionCount);
+
+  expect(actualBaseOptions).toEqual(quantityExpectedBase);
+
+  // Click base quantities
+  for (let i = 0; i < optionCount; i++) {
+    const option = options.nth(i);
+    await option.scrollIntoViewIfNeeded();
+    await option.click();
+    await expect(option).toHaveClass(/active/);
+  }
+
+  // Check modal quantities
+  if (quantityExpectedModal.length > 0) {
+    const seeMoreButton = fieldLocator.locator('.see_more, button.show_more_quantities');
+    if (await seeMoreButton.isVisible()) {
+      await seeMoreButton.click();
+
+      const modal = page.locator('.custom_quantity_modal');
+      await expect(modal).toBeVisible({ timeout: 5000 });
+
+      const modalOptions = modal.locator('li');
+      const modalCount = await modalOptions.count();
+      const actualModalOptions = [];
+
+      for (let j = 0; j < modalCount; j++) {
+        const text = (await modalOptions.nth(j).textContent()).trim();
+        const numberOnly = text.match(/^\d+/)?.[0];
+        actualModalOptions.push(numberOnly);
+      }
+
+      const allExpected = [...quantityExpectedBase, ...quantityExpectedModal];
+      const allFound = [...actualBaseOptions, ...actualModalOptions];
+      console.log(`   🔹 Expected: [${allExpected.join(', ')}]`);
+      console.log(`   🔸 Found:    [${allFound.join(', ')}]`);
+
+      expect(actualModalOptions).toEqual(quantityExpectedModal);
+
+      for (let j = 0; j < modalCount; j++) {
+        const modalQty = modalOptions.nth(j);
+        await modalQty.scrollIntoViewIfNeeded();
+        await modalQty.click();
+        if (j < modalCount - 1) {
+          await seeMoreButton.click();
+          await expect(modal).toBeVisible({ timeout: 4000 });
+        }
+      }
+
+      await page.keyboard.press('Escape');
+    }
+  }
+
+  return [...actualBaseOptions, ...quantityExpectedModal];
+}
+
+
+function getExpectedQuantities(category) {
+    switch (category) {
+        case 'badges':
+            return {
+                expectedBase: ['5', '10'],
+                expectedModal: ['20', '30', '50', '100', '200', '300', '500', '1000'],
+            };
+        case 'magnets':
+            return {
+                expectedBase: ['50', '100'],
+                expectedModal: ['200', '300', '500', '1000', '2000', '5000'],
+            };
+        default:
+            return { expectedBase: [], expectedModal: [] };
+    }
 }
 
 function expectedAttributes(slug) {
@@ -43,6 +125,7 @@ function expectedAttributes(slug) {
         Square: ['Gloss', 'Matte'],
         Heart: ['Gloss', 'Matte'],
       },
+      Quantity: getExpectedQuantities('badges'),
     },
     'mirror-badge': {
       Shapes: ['Circle'],
@@ -52,6 +135,7 @@ function expectedAttributes(slug) {
       Finishing: {
         Circle: ['Gloss', 'Matte'],
       },
+      Quantity: getExpectedQuantities('badges'),
     },
     'magnetic-badge': {
       Shapes: ['Circle'],
@@ -61,6 +145,7 @@ function expectedAttributes(slug) {
       Finishing: {
         Circle: ['Gloss', 'Matte'],
       },
+      Quantity: getExpectedQuantities('badges'),
     },
     'custom-magnet': {
       Shapes: ['Circle', 'Rectangle', 'Custom'],
@@ -74,6 +159,7 @@ function expectedAttributes(slug) {
         Rectangle: [],
         Custom: [],
       },
+      Quantity: getExpectedQuantities('magnets'),
     },
   };
 
@@ -101,7 +187,7 @@ async function verifyAttributes(page, slug) {
       }
     }
 
-    // ✅ Verify Sizes
+    // Sizes
     if (slug === 'custom-magnet' && shape === 'Custom') {
       const widthInput = page.locator('input[name="width"]');
       const heightInput = page.locator('input[name="height"]');
@@ -116,13 +202,26 @@ async function verifyAttributes(page, slug) {
       console.log(`✅ Verified Sizes for ${shape}`);
     }
 
-    // ✅ Verify Finishing
+    // Finishing
     if (!(slug === 'custom-magnet' && shape === 'Custom')) {
       const finishingExpected = expected.Finishing[shape] || [];
       if (finishingExpected.length > 0) {
         await looper(page, 'Finishing', finishingExpected);
       }
+      console.log(`✅ Verified Finishing for ${shape}`);
     }
+
+    // Quantity
+    const quantityExpected = expected.Quantity;
+    if (quantityExpected) {
+      await looper(
+        page,
+        'Quantity',
+        [...quantityExpected.expectedBase, ...quantityExpected.expectedModal],
+        true
+      );
+    }
+    console.log(`✅ Verified Quantities for ${shape}`);
   }
 }
 
