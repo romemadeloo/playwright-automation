@@ -172,8 +172,29 @@ function expectedAttributes(slug) {
 
 async function verifyAttributes(page, slug) {
   const expected = expectedAttributes(slug);
-
   console.log(`\n🧩 Verifying product: ${slug}`);
+
+  const shapeField = page.locator(
+    `//h4[contains(@class,"section_title") and normalize-space(text())="Shapes"]/following-sibling::div[contains(@class,"switcher_con")]`
+  );
+
+  await expect(shapeField, 'Shape section not visible').toBeVisible({ timeout: 8000 });
+
+  const shapeOptions = shapeField.locator('.select_items > ul > li:not(.see_more)');
+  const shapeCount = await shapeOptions.count();
+  const actualShapes = [];
+
+  for (let i = 0; i < shapeCount; i++) {
+    const text = (await shapeOptions.nth(i).textContent()).trim();
+    actualShapes.push(text);
+  }
+
+  console.log(`\n🎨 Shapes`);
+  console.log(`   🔹 Expected: [${expected.Shapes.join(', ')}]`);
+  console.log(`   🔸 Found:    [${actualShapes.join(', ')}]`);
+
+  expect(actualShapes).toEqual(expected.Shapes);
+  console.log(`✅ Verified Shapes`);
 
   for (let i = 0; i < expected.Shapes.length; i++) {
     const shape = expected.Shapes[i];
@@ -231,8 +252,8 @@ async function verifyAttributes(page, slug) {
     const packagingExpected = expected.Packaging;
     if (packagingExpected && slug !== 'custom-magnet') {
       await looper(page, 'Individual Packaging', packagingExpected);
+      console.log(`✅ Verified Packaging for ${shape}`);
     }
-    console.log(`✅ Verified Packaging for ${shape}`);
   }
 }
 
