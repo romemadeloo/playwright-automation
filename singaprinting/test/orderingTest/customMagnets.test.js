@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx'; // 📊 Excel export support
 import fs from 'fs';
 
 // Extend timeout (default 60s → 50min)
-test.setTimeout(3000000);
+// test.setTimeout(3000000);
 
 // 🧭 Helper: scroll into view then click
 async function scrollAndClick(page, xpath, description) {
