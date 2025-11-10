@@ -57,8 +57,8 @@ test('🛒 Add to Cart Flow - Button Badges (SingaPrinting) - All Shapes', async
     // 3️⃣ DEFINE TEST DATA
     const shapes = [
       { name: 'Circle', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[2]/div/div[1]/ul/li[1]' },
-      // { name: 'Square', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[2]/div/div[1]/ul/li[2]' },
-      // { name: 'Heart', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[2]/div/div[1]/ul/li[3]' }
+      { name: 'Square', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[2]/div/div[1]/ul/li[2]' },
+      { name: 'Heart', xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[2]/div/div[1]/ul/li[3]' }
     ];
 
     const circleSizes = [
@@ -74,13 +74,13 @@ test('🛒 Add to Cart Flow - Button Badges (SingaPrinting) - All Shapes', async
     ];
 
     const quantities = [
-      // { qty: 5, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/li[1]' },
-      // { qty: 10, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/li[2]' },
-      // { qty: 20, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[1]' },
-      // { qty: 30, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[2]' },
-      // { qty: 50, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[3]' },
-      // { qty: 100, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[4]' },
-      // { qty: 200, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[5]' },
+      { qty: 5, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/li[1]' },
+      { qty: 10, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/li[2]' },
+      { qty: 20, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[1]' },
+      { qty: 30, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[2]' },
+      { qty: 50, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[3]' },
+      { qty: 100, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[4]' },
+      { qty: 200, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[5]' },
       { qty: 300, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[6]' },
       { qty: 500, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[7]' },
       { qty: 1000, xpath: '//*[@id="product_details"]/div[1]/aside/div[1]/section[5]/div[2]/div[1]/ul/ul/li[8]' }
