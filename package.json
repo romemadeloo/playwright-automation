@@ -6,7 +6,8 @@
   "scripts": {
     "login:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/login.test.js --project=chromium",
     "login:live:sg": "cross-env ENV=live playwright test singaprinting/test/login.test.js --project=chromium",
-    "mag:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/mag.test.js --project=chromium"
+    "mag:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/mag.test.js --project=chromium",
+    "cm:dev:sg": "cross-env ENV=dev playwright test singaprinting/test/cm.test.js --project=chromium"
   },
   "keywords": [],
   "author": "",
